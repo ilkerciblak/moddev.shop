@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
+import 'package:mobile_application/common/config/init.dart';
+import 'package:mobile_application/feature/_feature.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initProjectDependencies();
   runApp(const MyApp());
 }
 
@@ -12,14 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      builder: (context, child) => Scaffold(
-        body: Center(
-          child: Text(
-            'ianan',
-            style: Theme.of(context).textTheme.displaySmall,
-          ),
-        ),
-      ),
+      home: const LoginScreen(),
       theme: ThemeData(
         textTheme: AppTextStyles.textTheme,
         scaffoldBackgroundColor: AppColors.secondaryWhite,

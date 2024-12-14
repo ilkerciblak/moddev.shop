@@ -19,3 +19,11 @@ final class Loading<T> extends Result<Exception, T> {
 final class Idle<T> extends Result<Exception, T> {
   const Idle();
 }
+
+typedef ActionResult<T> = Result<Exception, T>;
+
+extension ISREAL on ActionResult {
+  bool get isLoading => this is Loading;
+  bool get isSuccess => this is Success;
+  bool get isFailure => this is Failure;
+}
