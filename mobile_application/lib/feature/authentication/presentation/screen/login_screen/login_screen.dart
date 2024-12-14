@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   AppSpacing.verticalGapHuge2,
                   LoginFormContent(
                     actionResult: state.loginResult,
-                    onSubmit: cb.login,
+                    onSubmit: () => cb.login(context),
                     onUsernameChanged: cb.onUsernameChanged,
                     onPasswordChanged: cb.onPasswordChanged,
                   ),
