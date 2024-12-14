@@ -21,7 +21,7 @@ class AppTextStyles {
   static TextStyle get displaySmall => const TextStyle(
         fontFamily: _fontFamily,
         fontSize: 30.0,
-        fontWeight: FontWeight.w700,
+        fontWeight: FontWeight.bold,
         color: AppColors.primaryBlack,
       );
 

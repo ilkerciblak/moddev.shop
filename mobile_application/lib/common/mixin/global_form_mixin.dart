@@ -8,4 +8,6 @@ mixin GlobalFormMixin<T extends StatefulWidget> on State<T> {
   void validateForm() {
     validFormNotifier.value = customFormKey.currentState?.validate() ?? false;
   }
+
+  bool get validForm => customFormKey.currentState?.validate() ?? false;
 }

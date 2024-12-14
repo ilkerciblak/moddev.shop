@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/presentation/form_fields/mixin/_form_field_mixin.dart';
 import 'package:mobile_application/common/presentation/form_fields/validators/validation_helper.dart';
+import 'package:mobile_application/common/theme/color/app_colors.dart';
 
 class GeneralTextFormField extends StatefulWidget {
   final ValueChanged<String> onChanged;
@@ -50,6 +51,10 @@ class _GeneralTextFormFieldState extends State<GeneralTextFormField>
       valueListenable: obsecureText,
       builder: (context, obsecure, child) {
         return TextFormField(
+          style: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.copyWith(color: AppColors.primaryBlack),
           focusNode: widget.currentFocusNode,
           obscureText: obsecure,
           onChanged: widget.onChanged,

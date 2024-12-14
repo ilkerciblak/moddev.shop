@@ -19,4 +19,5 @@ final class AppSpacing {
   static SizedBox get verticalGapLarge => const SizedBox(height: large);
   static SizedBox get verticalGapXLarge => const SizedBox(height: xl);
   static SizedBox get verticalGapHuge => const SizedBox(height: xxl);
+  static SizedBox get verticalGapHuge2 => const SizedBox(height: xxl * 2);
 }

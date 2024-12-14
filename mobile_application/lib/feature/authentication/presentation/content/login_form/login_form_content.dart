@@ -28,10 +28,12 @@ class _LoginFormContentState extends State<LoginFormContent>
       key: customFormKey,
       child: Column(
         children: [
-          TextFormField(),
           GeneralTextFormField(
             onChanged: widget.onUsernameChanged,
-            inputDecoration: InputDecoration(),
+            inputDecoration: const InputDecoration(
+              hintText: 'Username',
+              helperText: '',
+            ),
             validatorList: const [
               StringValidators.correctUsername,
               StringValidators.emptyCheck
@@ -41,11 +43,15 @@ class _LoginFormContentState extends State<LoginFormContent>
           AppSpacing.verticalGapMd,
           GeneralTextFormField(
             onChanged: widget.onPasswordChanged,
-            inputDecoration: InputDecoration(),
+            secureInput: true,
+            inputDecoration: const InputDecoration(
+              hintText: 'Password',
+              helperText: '',
+            ),
             validatorList: const [
-              StringValidators.correctUsername,
+              StringValidators.emptyCheck,
             ],
-            maxLength: 25,
+            // maxLength: 25,
           ),
           Row(
             children: [
@@ -54,7 +60,11 @@ class _LoginFormContentState extends State<LoginFormContent>
                   btnText: 'Login',
                   actionResult: widget.actionResult,
                   backgroundColor: AppColors.primaryGreen,
-                  onTap: widget.onSubmit,
+                  onTap: () {
+                    if (validForm) {
+                      widget.onSubmit();
+                    }
+                  },
                 ),
               ),
             ],
