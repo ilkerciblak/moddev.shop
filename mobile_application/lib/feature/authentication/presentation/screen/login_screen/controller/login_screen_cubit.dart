@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_application/common/_common.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mobile_application/feature/authentication/presentation/screen/login_screen/controller/login_screen_state.dart';
 
 class LoginScreenCubit extends Cubit<LoginScreenState> {
@@ -11,15 +9,16 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
 
   LoginScreenCubit() : super(LoginScreenState.initial());
 
-  void login(BuildContext context) async {
+  Future<ActionResult<void>> login() async {
     emit(state.copyWith(loginResult: const Loading()));
     var response = await _authenticationRepository
         .login(username: state.username, password: state.password)
         .run();
 
-    response.fold(
+    return response.fold(
       (l) {
         emit(state.copyWith(loginResult: Failure(l)));
+        return Failure(l);
       },
       (r) {
         emit(
@@ -27,7 +26,7 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
             loginResult: Success(r),
           ),
         );
-        context.goNamed('shop-page');
+        return Success(r);
       },
     );
   }

@@ -12,7 +12,7 @@ class PresentationRouteRegistrar {
           StatefulShellBranch(routes: [
             GoRoute(
               path: '/shop',
-              name: 'shop-page',
+              name: 'shop-screen',
               builder: (context, state) {
                 return Container();
               },

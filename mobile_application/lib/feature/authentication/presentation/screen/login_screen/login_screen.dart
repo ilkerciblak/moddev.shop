@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
+import 'package:mobile_application/common/extension/future_extensions.dart';
 import 'package:mobile_application/feature/authentication/presentation/screen/login_screen/controller/_controller.dart';
 import 'package:mobile_application/feature/authentication/presentation/content/_content.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,20 +34,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   const EdgeInsets.symmetric(horizontal: AppSpacing.xxl * 3),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Spacer(),
                   const _Header(),
                   AppSpacing.verticalGapHuge2,
                   LoginFormContent(
                     actionResult: state.loginResult,
-                    onSubmit: () => cb.login(context),
+                    onSubmit: () => cb
+                        .login()
+                        .withGoNamedRoute(context, pathName: 'shop-screen'),
                     onUsernameChanged: cb.onUsernameChanged,
                     onPasswordChanged: cb.onPasswordChanged,
                   ),
                   const Divider(),
-                  AppSpacing.verticalGapHuge2,
                   const SocialLoginContent(),
-                  const Spacer(),
                   const Divider(),
                   const _SignUp()
                 ],
