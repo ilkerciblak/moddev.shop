@@ -23,7 +23,6 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           widget._navigationShell.goBranch(index);
-          setState(() {});
         },
         currentIndex: widget._navigationShell.currentIndex,
         backgroundColor: Colors.transparent,

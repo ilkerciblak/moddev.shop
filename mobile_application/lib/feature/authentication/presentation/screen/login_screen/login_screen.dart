@@ -4,6 +4,7 @@ import 'package:mobile_application/common/extension/future_extensions.dart';
 import 'package:mobile_application/feature/authentication/presentation/screen/login_screen/controller/_controller.dart';
 import 'package:mobile_application/feature/authentication/presentation/content/_content.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -72,7 +73,9 @@ class _SignUp extends StatelessWidget {
           'Don\'t you have an account',
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            context.pushNamed('register');
+          },
           child: Text(
             'Sign Up!',
             style: Theme.of(context).textTheme.titleMedium,
