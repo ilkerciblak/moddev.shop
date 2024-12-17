@@ -5,7 +5,7 @@ class AppFormTheme {
   InputDecorationTheme get inputDecorationThemeLight => InputDecorationTheme(
         contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 8),
         isDense: true,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        // floatingLabelBehavior: FloatingLabelBehavior.always,
         errorMaxLines: 1,
         filled: true,
         fillColor: AppColors.primarySilver,
@@ -45,11 +45,14 @@ class AppFormTheme {
         errorStyle: _buildTextStyle(
           appFontStyle: AppTextStyles.labelLarge,
         ),
+        labelStyle: _buildTextStyle(
+          appFontStyle: AppTextStyles.labelMedium,
+        ),
       );
   InputDecorationTheme get inputDecorationThemeDark => InputDecorationTheme(
         contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 8),
         isDense: true,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        // floatingLabelBehavior: FloatingLabelBehavior.always,
         errorMaxLines: 1,
         filled: true,
         fillColor: AppColors.primarySilver,
@@ -89,6 +92,9 @@ class AppFormTheme {
         errorStyle: _buildTextStyle(
           appFontStyle: AppTextStyles.labelMedium,
           color: AppColors.secondaryWhite,
+        ),
+        labelStyle: _buildTextStyle(
+          appFontStyle: AppTextStyles.labelMedium,
         ),
       );
 
