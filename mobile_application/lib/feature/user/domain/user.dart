@@ -1,5 +1,5 @@
-import 'package:mobile_application/feature/user/domain/user_payment_method.dart';
 import 'package:mobile_application/feature/user/domain/user_address.dart';
+import 'package:mobile_application/feature/user/domain/user_payment_method.dart';
 
 final class User {
   final int identifier;
@@ -52,5 +52,25 @@ final class User {
         imageUrl.hashCode ^
         userPaymentMethod.hashCode ^
         userAddress.hashCode;
+  }
+
+  User copyWith({
+    int? identifier,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? imageUrl,
+    UserPaymentMethod? userPaymentMethod,
+    UserAddress? userAddress,
+  }) {
+    return User(
+      identifier: identifier ?? this.identifier,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      imageUrl: imageUrl ?? this.imageUrl,
+      userPaymentMethod: userPaymentMethod ?? this.userPaymentMethod,
+      userAddress: userAddress ?? this.userAddress,
+    );
   }
 }

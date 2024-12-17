@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
-import 'package:mobile_application/common/presentation/form_fields/validators/string_validators.dart';
+import 'package:mobile_application/feature/user/presentation/content/sign_up/sign_up_form_mixin.dart';
 
 class SignUpFormContent extends StatefulWidget {
   final ActionResult<void> actionResult;
@@ -23,86 +23,184 @@ class SignUpFormContent extends StatefulWidget {
 }
 
 class _SignUpFormContentState extends State<SignUpFormContent>
-    with GlobalFormMixin {
+    with GlobalFormMixin, SignUpFormMixin {
   @override
   Widget build(BuildContext context) {
     return Form(
       key: customFormKey,
       child: Column(
         children: [
-          GeneralTextFormField(
-            onChanged: (value) {},
-            inputDecoration: const InputDecoration(
-              helperText: '',
-              hintText: 'Username',
-            ),
-            validatorList: const [
-              StringValidators.emptyCheck,
-              StringValidators.correctUsername,
-            ],
-          ),
+          _EmailFormField(widget: widget),
           // AppSpacing.verticalGapMd,
-          GeneralTextFormField(
-            onChanged: (value) {},
-            inputDecoration: const InputDecoration(
-              helperText: '',
-              hintText: 'Name',
-            ),
-            validatorList: const [
-              StringValidators.emptyCheck,
-              StringValidators.alowableName
+          _NameFormField(widget: widget),
+          _LastNameFormField(widget: widget),
+          _PasswordField(passwordVal: passwordVal),
+          _ConfirmPasswordField(passwordVal: passwordVal),
+          const _BirthDateFormField(),
+          const _TermsAndPolicyCheckBox(),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedStatefullButton(
+                  btnText: 'Sign Up',
+                  actionResult: widget.actionResult,
+                  backgroundColor: AppColors.primaryGreen,
+                  onTap: () {
+                    if (validForm) widget.onSubmit();
+                  },
+                ),
+              )
             ],
-          ),
-          GeneralTextFormField(
-            onChanged: (value) {},
-            inputDecoration: const InputDecoration(
-              helperText: '',
-              hintText: 'Lastname',
-            ),
-            validatorList: const [
-              StringValidators.emptyCheck,
-              StringValidators.alowableName
-            ],
-          ),
-          GeneralTextFormField(
-            onChanged: (value) {},
-            secureInput: true,
-            inputDecoration: const InputDecoration(
-              helperText: '',
-              hintText: 'Password',
-            ),
-          ),
-          GeneralTextFormField(
-            onChanged: (value) {},
-            secureInput: true,
-            inputDecoration: const InputDecoration(
-              helperText: '',
-              hintText: 'Confirm Password',
-            ),
-            // validatorList: [],
-          ),
-          DateSelectionFormField(
-            onChanged: (value) {},
-            label: 'Birth Date',
-            validators: [
-              (value) {
-                return value != null ? null : 'Please Select a Date!';
-              },
-              (value) {
-                return value!.isAfter(DateTime.now())
-                    ? null
-                    : 'Date cannot be after than today';
-              },
-            ],
-            lastDate: DateTime.now(),
-          ),
-          CheckBoxFormField(
-            onChanged: (value) {},
-            labelText:
-                'I agree to the Privacy Policy, Terms of Use and Terms of Service',
-          ),
+          )
         ],
       ),
+    );
+  }
+}
+
+class _ConfirmPasswordField extends StatelessWidget {
+  const _ConfirmPasswordField({
+    required this.passwordVal,
+  });
+
+  final ValueNotifier<String> passwordVal;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: passwordVal,
+      builder: (context, value, child) {
+        return GeneralTextFormField(
+          onChanged: (value) {},
+          secureInput: true,
+          inputDecoration: const InputDecoration(
+            helperText: '',
+            hintText: 'Confirm Password',
+          ),
+          validatorList: [StringValidators.passwordCoupleMatching(value)],
+        );
+      },
+    );
+  }
+}
+
+class _PasswordField extends StatelessWidget {
+  const _PasswordField({
+    required this.passwordVal,
+  });
+
+  final ValueNotifier<String> passwordVal;
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralTextFormField(
+      onChanged: (value) {
+        passwordVal.value = value;
+      },
+      secureInput: true,
+      inputDecoration: const InputDecoration(
+        helperText: '',
+        hintText: 'Password',
+      ),
+    );
+  }
+}
+
+class _TermsAndPolicyCheckBox extends StatelessWidget {
+  const _TermsAndPolicyCheckBox();
+
+  @override
+  Widget build(BuildContext context) {
+    return CheckBoxFormField(
+      onChanged: (value) {},
+      validators: const [CheckBoxValidations.shouldBeChecked],
+      labelText:
+          'I agree to the Privacy Policy, Terms of Use and Terms of Service',
+    );
+  }
+}
+
+class _BirthDateFormField extends StatelessWidget {
+  const _BirthDateFormField();
+
+  @override
+  Widget build(BuildContext context) {
+    return DateSelectionFormField(
+      onChanged: (value) {},
+      label: 'Birth Date',
+      lastDate: DateTime.now(),
+    );
+  }
+}
+
+class _LastNameFormField extends StatelessWidget {
+  const _LastNameFormField({
+    required this.widget,
+  });
+
+  final SignUpFormContent widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralTextFormField(
+      onChanged: widget.onLastNameChanged,
+      inputDecoration: const InputDecoration(
+        helperText: '',
+        hintText: 'Lastname',
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validatorList: const [
+        StringValidators.emptyCheck,
+        StringValidators.alowableName
+      ],
+    );
+  }
+}
+
+class _NameFormField extends StatelessWidget {
+  const _NameFormField({
+    required this.widget,
+  });
+
+  final SignUpFormContent widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralTextFormField(
+      onChanged: widget.onFirstNameChanged,
+      inputDecoration: const InputDecoration(
+        helperText: '',
+        hintText: 'Name',
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validatorList: const [
+        StringValidators.emptyCheck,
+        StringValidators.alowableName
+      ],
+    );
+  }
+}
+
+class _EmailFormField extends StatelessWidget {
+  const _EmailFormField({
+    required this.widget,
+  });
+
+  final SignUpFormContent widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralTextFormField(
+      onChanged: widget.onEmailChanged,
+      inputDecoration: const InputDecoration(
+        helperText: '',
+        hintText: 'Email',
+      ),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validatorList: const [
+        StringValidators.emptyCheck,
+        StringValidators.correctEmail,
+      ],
     );
   }
 }

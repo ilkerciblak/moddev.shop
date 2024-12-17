@@ -16,6 +16,9 @@ import 'package:mobile_application/common/presentation/form_fields/validators/va
 /// `Asserts` when:
 /// - Both `label` and `labelText` is defined. Both arguments are used to construct labeling widget. Do not use both
 ///
+/// `Component` using Theme.of(context) to construct error state, text labeling theme in order to build common
+/// visuality and prevent repeated codes. However, you can override some of the theming with  `labelTextStyle` or using
+/// custom `label` widget.
 class CheckBoxFormField extends StatelessWidget {
   final ValueChanged<bool> onChanged;
   final Widget? label;
@@ -27,7 +30,7 @@ class CheckBoxFormField extends StatelessWidget {
   CheckBoxFormField({
     super.key,
     required this.onChanged,
-    this.autovalidateMode = AutovalidateMode.disabled,
+    this.autovalidateMode = AutovalidateMode.always,
     this.validators,
     this.label,
     this.labelText,
@@ -54,6 +57,12 @@ class CheckBoxFormField extends StatelessWidget {
               },
               activeColor: AppColors.primaryGreen,
               isError: field.hasError,
+              side: field.hasError
+                  ? Theme.of(context)
+                      .inputDecorationTheme
+                      .errorBorder
+                      ?.borderSide
+                  : null,
             ),
             if (labelText != null)
               Expanded(

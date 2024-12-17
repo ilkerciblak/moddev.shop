@@ -4,10 +4,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobile_application/common/service/authentication/domain/i_authentication_repository.dart';
-import 'package:mobile_application/common/service/encryption/encrypter_mode.dart';
 import 'package:mobile_application/feature/authentication/data/service/dummy_authentication_service.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mobile_application/feature/_feature.dart';
 
 final getIt = GetIt.instance;
 
@@ -81,6 +81,15 @@ Future<void> initProjectDependencies() async {
       tokenRepository: tokenRepository,
     ),
   );
+
+  // User Feature
+
+  final IUserService userService =
+      getIt.registerSingleton<IUserService>(DummyUserService(api: apiService));
+
+  final IUserRepository userRepository =
+      getIt.registerSingleton<IUserRepository>(
+          UserRepository(userService: userService));
 
   await getIt.allReady();
 }

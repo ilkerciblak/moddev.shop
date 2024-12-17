@@ -13,8 +13,9 @@ class GeneralTextFormField extends StatefulWidget {
   final String? currentValue;
   final int? maxLength;
   final bool secureInput;
+  final TextEditingController? textEditingController;
 
-  const GeneralTextFormField({
+  GeneralTextFormField({
     super.key,
     required this.onChanged,
     required this.inputDecoration,
@@ -25,7 +26,11 @@ class GeneralTextFormField extends StatefulWidget {
     this.nextFocusNode,
     this.currentValue,
     this.maxLength,
-  });
+    this.textEditingController,
+  }) {
+    assert(textEditingController == null || currentValue == null,
+        'One of the textEditingController or currentValue parameter should be null');
+  }
 
   @override
   State<GeneralTextFormField> createState() => _GeneralTextFormFieldState();
@@ -55,9 +60,12 @@ class _GeneralTextFormFieldState extends State<GeneralTextFormField>
               .textTheme
               .titleMedium
               ?.copyWith(color: AppColors.primaryBlack),
+          controller: widget.textEditingController,
           focusNode: widget.currentFocusNode,
           obscureText: obsecure,
-          onChanged: widget.onChanged,
+          onChanged: (value) {
+            widget.onChanged(value);
+          },
           initialValue: widget.currentValue,
           autovalidateMode: widget.autovalidateMode,
           maxLength: widget.maxLength,
