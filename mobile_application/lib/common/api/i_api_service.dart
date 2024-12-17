@@ -11,6 +11,10 @@ abstract interface class IApiService {
   ApiTask getCurrentUser({
     required String accessToken,
   });
+
+  ApiTask createUser({
+    required Map<String, dynamic> requestBody,
+  });
 }
 
 typedef ApiTask = TaskEither<Exception, Map<String, dynamic>>;

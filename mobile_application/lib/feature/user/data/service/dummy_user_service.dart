@@ -15,6 +15,18 @@ final class DummyUserService implements IUserService {
     );
   }
 
+  /// Creating (SignUp) request for new user
+  ///
+  /// - parameter [UserDto] `userDto` is required
+  /// - returns [UserDto] object if succeed
+  @override
+  TaskEither<Exception, UserDto> createUser({required UserDto userDto}) {
+    return _api
+        .createUser(requestBody: _jsonMapper(userDto))
+        .map((r) => _userDtoMapper(r));
+  }
+
+  /// Dummy Map<String, dynamic> to UserDto mapper
   UserDto _userDtoMapper(Map<String, dynamic> r) {
     return UserDto(
       identifier: r['id'] ?? 0,
@@ -34,5 +46,14 @@ final class DummyUserService implements IUserService {
         postalCode: r['address']['postalCode'],
       ),
     );
+  }
+
+  /// Dummy UserDto to Map<String, dynamic> mapper
+  Map<String, dynamic> _jsonMapper(UserDto userDto) {
+    return {
+      'firstName': userDto.firstName,
+      'lastName': userDto.lastName,
+      'email': userDto.email,
+    };
   }
 }

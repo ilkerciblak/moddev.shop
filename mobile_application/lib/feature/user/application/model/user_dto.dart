@@ -30,6 +30,27 @@ class UserDto {
         userAddress: userAddress.toEntity(),
       );
 
+  /// Factory Constructor that gives UserDto from User Entity Attributes
+  ///
+  /// - @param [User] `user` is required
+  /// - @returns [UserDto.new] `UserDto object`
+  factory UserDto.fromEntity(User user) => UserDto(
+        identifier: user.identifier,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        imageUrl: user.imageUrl,
+        userPaymentMethod: UserPaymentMethodDto(
+            cardNumber: user.userPaymentMethod.cardNumber,
+            cardType: user.userPaymentMethod.cardType,
+            cartExpire: user.userPaymentMethod.cartExpire),
+        userAddress: UserAddressDto(
+            city: user.userAddress.city,
+            state: user.userAddress.state,
+            address: user.userAddress.address,
+            postalCode: user.userAddress.postalCode),
+      );
+
   @override
   bool operator ==(covariant UserDto other) {
     if (identical(this, other)) return true;

@@ -11,16 +11,19 @@ final class UserRepository implements IUserRepository {
   TaskEither<Exception, User> getCurrentUser({required String accessToken}) {
     return _userService.getCurrentUser(accessToken: accessToken).map(
       (userDto) {
-        return User(
-          identifier: userDto.identifier,
-          firstName: userDto.firstName,
-          lastName: userDto.lastName,
-          email: userDto.email,
-          imageUrl: userDto.imageUrl,
-          userPaymentMethod: userDto.userPaymentMethod.toEntity(),
-          userAddress: userDto.userAddress.toEntity(),
-        );
+        return userDto.toEntity();
       },
     );
+  }
+
+  @override
+  TaskEither<Exception, User> createUser({required User user}) {
+    return _userService
+        .createUser(
+          userDto: UserDto.fromEntity(user),
+        )
+        .map(
+          (r) => r.toEntity(),
+        );
   }
 }

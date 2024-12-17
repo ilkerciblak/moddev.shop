@@ -5,4 +5,8 @@ abstract interface class IUserService {
   TaskEither<Exception, UserDto> getCurrentUser({
     required String accessToken,
   });
+
+  TaskEither<Exception, UserDto> createUser({
+    required UserDto userDto,
+  });
 }

@@ -31,4 +31,15 @@ final class DummyJsonApi implements IApiService {
       },
     );
   }
+
+  @override
+  ApiTask createUser({required Map<String, dynamic> requestBody}) {
+    return _networkService.post(
+      path: dotenv.env['CREATE_USER_PATH']!,
+      requestBody: requestBody,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+  }
 }
