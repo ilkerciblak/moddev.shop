@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
-import 'package:mobile_application/common/routing/app_routing.dart';
+import 'package:mobile_application/presentation/routing/app_routing.dart';
 import 'package:mobile_application/common/theme/input_decoration/input_decoration.dart';
-import 'package:mobile_application/feature/_feature.dart';
-import 'package:mobile_application/presentation/_presentation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +16,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
-      routerConfig: AppRouting.gorouter([
-        AuthenticationRouteRegistrar.loginRoute,
-        PresentationRouteRegistrar.homeRoute,
-      ]),
+      debugShowCheckedModeBanner: false,
+      title: 'Modular Shop',
+      routerConfig: AppRouting.appRouteConfig,
       theme: ThemeData(
         textTheme: AppTextStyles.textTheme,
         scaffoldBackgroundColor: AppColors.secondaryWhite,
