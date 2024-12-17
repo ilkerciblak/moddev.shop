@@ -30,28 +30,33 @@ class _LoginScreenState extends State<LoginScreen> {
         child: BlocBuilder<LoginScreenCubit, LoginScreenState>(
           bloc: cb,
           builder: (context, state) {
-            return Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: AppSpacing.xxl * 3),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const _Header(),
-                  AppSpacing.verticalGapHuge2,
-                  LoginFormContent(
-                    actionResult: state.loginResult,
-                    onSubmit: () => cb
-                        .login()
-                        .withGoNamedRoute(context, pathName: 'shop-screen'),
-                    onUsernameChanged: cb.onUsernameChanged,
-                    onPasswordChanged: cb.onPasswordChanged,
+            return Container(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.xxl * 3),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const _Header(),
+                      AppSpacing.verticalGapHuge2,
+                      LoginFormContent(
+                        actionResult: state.loginResult,
+                        onSubmit: () => cb
+                            .login()
+                            .withGoNamedRoute(context, pathName: 'shop-screen'),
+                        onUsernameChanged: cb.onUsernameChanged,
+                        onPasswordChanged: cb.onPasswordChanged,
+                      ),
+                      const Divider(),
+                      const SocialLoginContent(),
+                      const Divider(),
+                      const _SignUp()
+                    ],
                   ),
-                  const Divider(),
-                  const SocialLoginContent(),
-                  const Divider(),
-                  const _SignUp()
-                ],
+                ),
               ),
             );
           },
