@@ -12,6 +12,7 @@ import 'package:mobile_application/common/presentation/form_fields/validators/va
 /// - @param [List<FormFieldValidator<bool>>] validators: to validate input
 /// - @param [String?] forceErrorText: to override errorText of validator(s)
 /// - @param [AutovalidateMode] autovalidateMode: to set AutovalidateMode of the formField, `predefined as AutovalidateMode.disabled`
+/// - @param [bool?] initialValue: to set initial value of the checkbox, `predefined as false`
 ///
 /// `Asserts` when:
 /// - Both `label` and `labelText` is defined. Both arguments are used to construct labeling widget. Do not use both
@@ -27,10 +28,12 @@ class CheckBoxFormField extends StatelessWidget {
   final List<FormFieldValidator<bool>>? validators;
   final String? forceErrorText;
   final AutovalidateMode autovalidateMode;
+  final bool? initialValue;
   CheckBoxFormField({
     super.key,
     required this.onChanged,
     this.autovalidateMode = AutovalidateMode.always,
+    this.initialValue = false,
     this.validators,
     this.label,
     this.labelText,
@@ -46,7 +49,7 @@ class CheckBoxFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormField<bool>(
       validator: (value) => ValidationHelper.chainValidators(validators, value),
-      initialValue: false,
+      initialValue: initialValue,
       builder: (field) {
         return Row(
           children: [
@@ -54,6 +57,7 @@ class CheckBoxFormField extends StatelessWidget {
               value: field.value,
               onChanged: (value) {
                 field.didChange(value);
+                onChanged(value ?? false);
               },
               activeColor: AppColors.primaryGreen,
               isError: field.hasError,

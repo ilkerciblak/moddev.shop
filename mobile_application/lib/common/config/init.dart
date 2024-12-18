@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mobile_application/common/service/shared_preferences/_shared_preferences.dart';
 import 'package:mobile_application/feature/authentication/data/service/dummy_authentication_service.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +23,8 @@ Future<void> initProjectDependencies() async {
   // Initializing shared prefences instance
   final prefs = await SharedPreferences.getInstance();
 
+  // prefs.clear();
+
   /// Register of
   ///  - Encryption Service
   ///  - SharedPreferences Manager w/ Encryption
@@ -32,6 +35,9 @@ Future<void> initProjectDependencies() async {
         secureKey: dotenv.env['SECURE_KEY']!,
         encrypterMode: EncrypterMode.fernet),
   );
+
+  final SharedPreferencesManager sharedPreferencesManager2 =
+      getIt.registerSingleton(SharedPreferencesManager(preferences: prefs));
 
   final EncryptedSharedPreferencesManager sharedPreferencesManager =
       getIt.registerSingleton<EncryptedSharedPreferencesManager>(
@@ -44,7 +50,13 @@ Future<void> initProjectDependencies() async {
   final EncryptedSecureStorageService secureStorageService =
       getIt.registerSingleton<EncryptedSecureStorageService>(
     EncryptedSecureStorageService(
-      secureStorage: const FlutterSecureStorage(),
+      secureStorage: const FlutterSecureStorage(
+          iOptions: IOSOptions(
+        accountName: 'moddev',
+        // groupId: 'moddev',
+        synchronizable: true,
+        accessibility: KeychainAccessibility.first_unlock,
+      )),
       encryptionService: encryptionService,
     ),
   );
@@ -73,7 +85,7 @@ Future<void> initProjectDependencies() async {
       storageService: secureStorageService,
     ),
   );
-
+  // secureStorageService.clearAll();
   final IAuthenticationRepository authRepository =
       getIt.registerSingleton<IAuthenticationRepository>(
     AuthenticationRepository(

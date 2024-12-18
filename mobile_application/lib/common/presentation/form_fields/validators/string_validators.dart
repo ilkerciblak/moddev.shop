@@ -9,7 +9,7 @@ class StringValidators {
           : 'Please enter a valid email pattern like example@example.com';
 
   static String? correctUsername(String? value) =>
-      RegExp(r'^[a-zA-Z][a-zA-Z0-9_]{5,25}$').hasMatch(value!)
+      RegExp(r'^[a-zA-Z][a-zA-Z0-9_]{4,25}$').hasMatch(value!)
           ? null
           : 'Please enter a valid username pattern';
 
