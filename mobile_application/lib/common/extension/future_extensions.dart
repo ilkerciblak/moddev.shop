@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_application/common/_common.dart';
+import 'package:mobile_application/common/extension/context_extensions.dart';
 
 /// An [Future<ActionResult<T>>] extension that allows routing actions based on whether action result is success or fails.
 /// [ActionResult] is typedefinition of [Result<Exception,T>]
@@ -74,17 +75,16 @@ extension RotingExtension<T> on Future<ActionResult<T>> {
       (result) {
         return result.match(
           onSuccess: (r) {
+            ScaffoldMessenger.maybeOf(context)
+                ?.removeCurrentSnackBar(reason: SnackBarClosedReason.hide);
             if (successMessage != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(successMessage),
-                ),
-              );
+              context.showSuccessToast(message: successMessage);
             }
           },
           onFailure: (l) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(l.toString())));
+            context.showErrorToast(
+              message: l.toString(),
+            );
           },
         );
       },

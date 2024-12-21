@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_application/common/_common.dart';
-import 'package:mobile_application/common/extension/future_extensions.dart';
 import 'package:mobile_application/feature/authentication/presentation/screen/login_screen/controller/_controller.dart';
 
 class LoginFormContent extends StatefulWidget {
@@ -74,11 +73,7 @@ class _LoginFormContentState extends State<LoginFormContent>
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text('HAH IDIOT XD'),
-                        //   ),
-                        // );
+                        context.showErrorToast(message: 'HAH IDIOT XD');
                       },
                       child: const Text('Forgotten Password'),
                     ),

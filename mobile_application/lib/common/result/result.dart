@@ -45,12 +45,6 @@ final class Idle<T> extends Result<Exception, T> {
   const Idle();
 }
 
-extension ISREAL on ActionResult {
-  bool get isLoading => this is Loading;
-  bool get isSuccess => this is Success;
-  bool get isFailure => this is Failure;
-}
-
+typedef ActionResult<T> = Result<Exception, T>;
 typedef Success<T> = SuccessResult<Exception, T>;
 typedef Failure<T> = FailureResult<Exception, T>;
-typedef ActionResult<T> = Result<Exception, T>;

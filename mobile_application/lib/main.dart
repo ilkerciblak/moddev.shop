@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
-import 'package:mobile_application/presentation/routing/app_routing.dart';
-import 'package:mobile_application/common/theme/input_decoration/input_decoration.dart';
+import 'package:mobile_application/presentation/_presentation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
