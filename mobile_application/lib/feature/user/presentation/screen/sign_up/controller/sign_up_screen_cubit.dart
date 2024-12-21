@@ -18,8 +18,7 @@ class SignUpScreenCubit extends Cubit<SignUpScreenState> {
       (l) {
         emit(state.copyWith(signUpResult: Failure(l)));
       },
-      // ignore: void_checks
-      (r) => emit(state.copyWith(signUpResult: Success(() {}))),
+      (r) => emit(state.copyWith(signUpResult: const Success())),
     );
 
     return state.signUpResult;

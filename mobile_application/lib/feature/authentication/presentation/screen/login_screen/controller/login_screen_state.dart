@@ -1,36 +1,36 @@
 import 'package:mobile_application/common/_common.dart';
 
-final class LoginScreenState {
+class LoginScreenState {
   final String username;
   final String password;
-  final ActionResult<void> loginResult;
+  final ActionResult<void> screenAction;
   final bool rememberMe;
 
   LoginScreenState({
     required this.username,
     required this.password,
-    required this.loginResult,
+    required this.screenAction,
     required this.rememberMe,
   });
 
   LoginScreenState copyWith({
     String? username,
     String? password,
-    ActionResult<void>? loginResult,
+    ActionResult<void>? screenAction,
     bool? rememberMe,
   }) {
     return LoginScreenState(
       username: username ?? this.username,
       password: password ?? this.password,
+      screenAction: screenAction ?? this.screenAction,
       rememberMe: rememberMe ?? this.rememberMe,
-      loginResult: loginResult ?? this.loginResult,
     );
   }
 
   factory LoginScreenState.initial() => LoginScreenState(
         username: '',
         password: '',
-        loginResult: const Idle(),
+        screenAction: const Idle(),
         rememberMe: false,
       );
 
@@ -40,14 +40,15 @@ final class LoginScreenState {
 
     return other.username == username &&
         other.password == password &&
-        other.rememberMe == rememberMe &&
-        other.loginResult == loginResult;
+        other.screenAction == screenAction &&
+        other.rememberMe == rememberMe;
   }
 
   @override
-  int get hashCode =>
-      username.hashCode ^
-      password.hashCode ^
-      rememberMe.hashCode ^
-      loginResult.hashCode;
+  int get hashCode {
+    return username.hashCode ^
+        password.hashCode ^
+        screenAction.hashCode ^
+        rememberMe.hashCode;
+  }
 }

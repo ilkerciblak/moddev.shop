@@ -9,6 +9,7 @@ final class AppRouting {
     initialLocation: '/login',
     routes: [
       PresentationRouteRegistrar.homeRoute,
+      PresentationRouteRegistrar.splashRoute,
       AuthenticationRouteRegistrar.loginRoute,
       UserRouteRegistrar.signUpScreen,
     ],

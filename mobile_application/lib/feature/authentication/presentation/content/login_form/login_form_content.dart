@@ -21,6 +21,7 @@ class _LoginFormContentState extends State<LoginFormContent>
   @override
   void initState() {
     cb = LoginScreenCubit();
+
     super.initState();
   }
 
@@ -32,7 +33,7 @@ class _LoginFormContentState extends State<LoginFormContent>
         return Form(
           key: customFormKey,
           child: Column(
-            key: Key(state.loginResult.hashCode.toString()),
+            key: Key(state.screenAction.hashCode.toString()),
             children: [
               GeneralTextFormField(
                 onChanged: cb.onUsernameChanged,
@@ -89,11 +90,14 @@ class _LoginFormContentState extends State<LoginFormContent>
                   Expanded(
                     child: ElevatedStatefullButton(
                       btnText: 'Login',
-                      actionResult: state.loginResult,
+                      actionResult: state.screenAction,
                       backgroundColor: AppColors.primaryGreen,
                       onTap: () {
                         if (validForm) {
-                          cb.login().withGoNamedRoute(
+                          cb
+                              .login()
+                              .showActionResultToast(context)
+                              .withGoNamedRoute(
                                 context,
                                 pathName: 'shop-screen',
                               );

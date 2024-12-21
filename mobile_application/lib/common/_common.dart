@@ -5,3 +5,4 @@ export 'service/_service.dart';
 export 'api/_api.dart';
 export 'mixin/_mixin.dart';
 export 'presentation/_presentation.dart';
+export 'helper/_helper.dart';

@@ -24,6 +24,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
   go_router: ^14.6.2
+  flutter_native_splash: ^2.4.3
 
 
 dev_dependencies:
@@ -37,6 +38,7 @@ flutter:
   uses-material-design: true
   assets:
     - lib/common/config/.env
+    - lib/common/asset/image/
   fonts: 
   - family: Merriweather
     fonts:

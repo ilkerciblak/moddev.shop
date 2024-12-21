@@ -17,7 +17,7 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
   }
 
   void setSavedCredentials() async {
-    emit(state.copyWith(loginResult: const Loading()));
+    emit(state.copyWith(screenAction: const Loading()));
 
     var username = await _secureStorageService.getString(key: 'username');
     var password = await _secureStorageService.getString(key: 'password');
@@ -28,39 +28,39 @@ class LoginScreenCubit extends Cubit<LoginScreenState> {
         username: username,
         password: password,
         rememberMe: rememberMe,
-        loginResult: const Idle(),
+        screenAction: const Success(),
       ),
     );
   }
 
   Future<ActionResult<void>> login() async {
-    emit(state.copyWith(loginResult: const Loading()));
+    emit(state.copyWith(screenAction: const Loading()));
     var response = await _authenticationRepository
         .login(username: state.username, password: state.password)
         .run();
 
     response.fold(
       (l) {
-        emit(state.copyWith(loginResult: Failure(l)));
+        emit(state.copyWith(screenAction: Failure(l)));
         return Failure(l);
       },
       (r) {
         emit(
           state.copyWith(
-            loginResult: Success(r),
+            screenAction: const Success(),
           ),
         );
 
-        return Success(r);
+        return const Success();
       },
     );
 
     await setRemember();
-    return state.loginResult;
+    return state.screenAction;
   }
 
   Future<void> setRemember() async {
-    if (state.rememberMe && state.loginResult.isSuccess) {
+    if (state.rememberMe && state.screenAction.isSuccess) {
       await _secureStorageService.setString(
           key: 'username', value: state.username);
       await _secureStorageService.setString(
