@@ -18,16 +18,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Modular Shop',
       routerConfig: AppRouting.appRouteConfig,
-      theme: ThemeData(
-        textTheme: AppTextStyles.textTheme,
-        scaffoldBackgroundColor: AppColors.secondaryWhite,
-        inputDecorationTheme: AppFormTheme().inputDecorationThemeLight,
-      ),
-      darkTheme: ThemeData(
-        textTheme: AppTextStylesDark.darkTextTheme,
-        scaffoldBackgroundColor: AppColors.primaryBlack,
-        inputDecorationTheme: AppFormTheme().inputDecorationThemeDark,
-      ),
+      theme: AppTheme.appLightTheme,
+      darkTheme: AppTheme.appDarkTheme,
     );
   }
 }

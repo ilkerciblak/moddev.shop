@@ -6,6 +6,8 @@ import 'package:mobile_application/feature/user/presentation/screen/user_tab/con
 
 class UserScreenCubit extends Cubit<UserScreenState> {
   final IUserRepository _userRepository = GetIt.instance<IUserRepository>();
+  final IAuthenticationRepository _authenticationRepository =
+      GetIt.instance<IAuthenticationRepository>();
   final TokenRepository _tokenRepository = GetIt.instance<TokenRepository>();
 
   UserScreenCubit() : super(UserScreenState.initial()) {
@@ -39,5 +41,14 @@ class UserScreenCubit extends Cubit<UserScreenState> {
     );
 
     return state.actionResult;
+  }
+
+  Future<ActionResult<void>> logout() async {
+    var response = await _authenticationRepository.logout().run();
+
+    return response.fold(
+      (l) => Failure(l),
+      (r) => const Success(),
+    );
   }
 }

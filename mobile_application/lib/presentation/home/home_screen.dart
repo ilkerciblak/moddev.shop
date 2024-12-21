@@ -35,10 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Anan',
           ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: 'Anan'),
+            icon: Icon(
+              Icons.person_2_outlined,
+            ),
+            label: 'Profile',
+          ),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,

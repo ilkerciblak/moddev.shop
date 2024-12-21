@@ -74,6 +74,11 @@ Future<void> initProjectDependencies() async {
   );
 
   // Authentication Service Register
+
+  final AuthenticationListenable auth =
+      getIt.registerSingleton<AuthenticationListenable>(
+          AuthenticationListenable.initial());
+
   final IAuthenticationService dummyAuthService =
       getIt.registerSingleton<IAuthenticationService>(
     DummyAuthenticationService(apiService: apiService),
