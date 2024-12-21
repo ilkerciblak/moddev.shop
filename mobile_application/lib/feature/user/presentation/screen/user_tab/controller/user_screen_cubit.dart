@@ -8,23 +8,18 @@ class UserScreenCubit extends Cubit<UserScreenState> {
   final IUserRepository _userRepository = GetIt.instance<IUserRepository>();
   final TokenRepository _tokenRepository = GetIt.instance<TokenRepository>();
 
-  UserScreenCubit() : super(UserScreenState.initial());
+  UserScreenCubit() : super(UserScreenState.initial()) {
+    getCurrentUser();
+  }
 
   Future<ActionResult<User>> getCurrentUser() async {
-    var accessToken = await _tokenRepository.getAccessToken().run().then(
-      (value) {
-        return value.fold(
-          (l) {
-            throw l;
-          },
-          (r) {
-            return r;
-          },
-        );
+    emit(state.copyWith(actionResult: const Loading()));
+
+    var response = await _tokenRepository.getAccessToken().flatMap(
+      (r) {
+        return _userRepository.getCurrentUser(accessToken: r);
       },
-    );
-    var response =
-        await _userRepository.getCurrentUser(accessToken: accessToken).run();
+    ).run();
 
     response.fold(
       (l) {

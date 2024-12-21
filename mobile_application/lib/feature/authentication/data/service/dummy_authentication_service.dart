@@ -1,5 +1,4 @@
 import 'package:mobile_application/common/_common.dart';
-import 'package:mobile_application/common/service/authentication/domain/authentication_response_model.dart';
 import 'package:fpdart/fpdart.dart';
 
 final class DummyAuthenticationService implements IAuthenticationService {
