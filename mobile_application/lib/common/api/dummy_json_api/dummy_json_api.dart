@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mobile_application/common/api/query_parameters.dart';
 import 'package:mobile_application/common/service/_service.dart';
 import 'package:mobile_application/common/api/i_api_service.dart';
 
@@ -51,5 +52,48 @@ final class DummyJsonApi implements IApiService {
         HttpHeaders.contentTypeHeader: 'application/json',
       },
     );
+  }
+
+  @override
+  ApiTask getAllProducts(QueryParameters? queryParameters) {
+    return _networkService.get(
+      path: dotenv.env['GET_ALL_PRODUCTS']!,
+      queryParameters: queryParameters?.toQueryParameter(),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+  }
+
+  @override
+  ApiTask getProductById(
+    QueryParameters? queryParameters, {
+    required int productId,
+  }) {
+    return _networkService.get(
+      path: dotenv.env['GET_PRODUCT_BY_ID']!.replaceFirst(
+        ':productId',
+        productId.toString(),
+      ),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+      queryParameters: queryParameters?.toQueryParameter(),
+    );
+  }
+
+  @override
+  ApiTask getProductsByCategory(
+    QueryParameters? queryParameters, {
+    required String categorySlug,
+  }) {
+    return _networkService.get(
+        path: dotenv.env['GET_PRODUCT_BY_CATEGORY']!.replaceFirst(
+          ':categorySlug',
+          categorySlug,
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        });
   }
 }
