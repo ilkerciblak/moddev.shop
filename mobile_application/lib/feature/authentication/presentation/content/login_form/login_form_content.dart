@@ -4,30 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/authentication/presentation/screen/login_screen/controller/_controller.dart';
 
-class LoginFormContent extends StatefulWidget {
-  const LoginFormContent({
+class LoginFormContent extends StatelessWidget with GlobalFormMixinStl {
+  LoginFormContent({
     super.key,
   });
 
   @override
-  State<LoginFormContent> createState() => _LoginFormContentState();
-}
-
-class _LoginFormContentState extends State<LoginFormContent>
-    with GlobalFormMixin {
-  late final LoginScreenCubit cb;
-
-  @override
-  void initState() {
-    cb = LoginScreenCubit();
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginScreenCubit, LoginScreenState>(
-      bloc: cb,
+      bloc: context.read<LoginScreenCubit>(),
       builder: (context, state) {
         return Form(
           key: customFormKey,
@@ -35,7 +20,7 @@ class _LoginFormContentState extends State<LoginFormContent>
             key: Key(state.screenAction.hashCode.toString()),
             children: [
               GeneralTextFormField(
-                onChanged: cb.onUsernameChanged,
+                onChanged: context.read<LoginScreenCubit>().onUsernameChanged,
                 inputDecoration: const InputDecoration(
                   hintText: 'Username',
                   helperText: '',
@@ -46,10 +31,11 @@ class _LoginFormContentState extends State<LoginFormContent>
                 ],
                 maxLength: 25,
                 currentValue: state.username,
+                enabled: !state.screenAction.isLoading,
               ),
               AppSpacing.verticalGapMd,
               GeneralTextFormField(
-                onChanged: cb.onPasswordChanged,
+                onChanged: context.read<LoginScreenCubit>().onPasswordChanged,
                 secureInput: true,
                 inputDecoration: const InputDecoration(
                   hintText: 'Password',
@@ -65,7 +51,8 @@ class _LoginFormContentState extends State<LoginFormContent>
                 children: [
                   Expanded(
                     child: CheckBoxFormField(
-                      onChanged: cb.onRememberMeChanged,
+                      onChanged:
+                          context.read<LoginScreenCubit>().onRememberMeChanged,
                       labelText: 'Remember me',
                       initialValue: state.rememberMe,
                     ),
@@ -89,7 +76,8 @@ class _LoginFormContentState extends State<LoginFormContent>
                       backgroundColor: AppColors.primaryGreen,
                       onTap: () {
                         if (validForm) {
-                          cb
+                          context
+                              .read<LoginScreenCubit>()
                               .login()
                               .showActionResultToast(context)
                               .withGoNamedRoute(

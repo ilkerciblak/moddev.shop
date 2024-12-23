@@ -2,38 +2,25 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/user/presentation/content/sign_up/sign_up_form_mixin.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_application/feature/user/presentation/screen/sign_up/controller/_controller.dart';
 
-class SignUpFormContent extends StatefulWidget {
-  final ActionResult<void> actionResult;
-  final void Function() onSubmit;
-  final void Function(String) onFirstNameChanged;
-  final void Function(String) onLastNameChanged;
-  final void Function(String) onEmailChanged;
-  const SignUpFormContent({
+class SignUpFormContent extends StatelessWidget
+    with GlobalFormMixinStl, SignUpFormMixin {
+  SignUpFormContent({
     super.key,
-    required this.actionResult,
-    required this.onSubmit,
-    required this.onFirstNameChanged,
-    required this.onLastNameChanged,
-    required this.onEmailChanged,
   });
 
-  @override
-  State<SignUpFormContent> createState() => _SignUpFormContentState();
-}
-
-class _SignUpFormContentState extends State<SignUpFormContent>
-    with GlobalFormMixin, SignUpFormMixin {
   @override
   Widget build(BuildContext context) {
     return Form(
       key: customFormKey,
       child: Column(
         children: [
-          _EmailFormField(widget: widget),
+          const _EmailFormField(),
           // AppSpacing.verticalGapMd,
-          _NameFormField(widget: widget),
-          _LastNameFormField(widget: widget),
+          const _NameFormField(),
+          const _LastNameFormField(),
           _PasswordField(passwordVal: passwordVal),
           _ConfirmPasswordField(passwordVal: passwordVal),
           const _BirthDateFormField(),
@@ -43,10 +30,16 @@ class _SignUpFormContentState extends State<SignUpFormContent>
               Expanded(
                 child: ElevatedStatefullButton(
                   btnText: 'Sign Up',
-                  actionResult: widget.actionResult,
+                  actionResult:
+                      context.read<SignUpScreenCubit>().state.signUpResult,
                   backgroundColor: AppColors.primaryGreen,
                   onTap: () {
-                    if (validForm) widget.onSubmit();
+                    if (validForm) {
+                      context
+                          .read<SignUpScreenCubit>()
+                          .signUp()
+                          .withGoNamedRoute(context, pathName: 'login-screen');
+                    }
                   },
                 ),
               )
@@ -134,16 +127,12 @@ class _BirthDateFormField extends StatelessWidget {
 }
 
 class _LastNameFormField extends StatelessWidget {
-  const _LastNameFormField({
-    required this.widget,
-  });
-
-  final SignUpFormContent widget;
+  const _LastNameFormField();
 
   @override
   Widget build(BuildContext context) {
     return GeneralTextFormField(
-      onChanged: widget.onLastNameChanged,
+      onChanged: context.read<SignUpScreenCubit>().onLastnameChanged,
       inputDecoration: const InputDecoration(
         helperText: '',
         hintText: 'Lastname',
@@ -158,16 +147,12 @@ class _LastNameFormField extends StatelessWidget {
 }
 
 class _NameFormField extends StatelessWidget {
-  const _NameFormField({
-    required this.widget,
-  });
-
-  final SignUpFormContent widget;
+  const _NameFormField();
 
   @override
   Widget build(BuildContext context) {
     return GeneralTextFormField(
-      onChanged: widget.onFirstNameChanged,
+      onChanged: context.read<SignUpScreenCubit>().onFirstnameChanged,
       inputDecoration: const InputDecoration(
         helperText: '',
         hintText: 'Name',
@@ -182,16 +167,14 @@ class _NameFormField extends StatelessWidget {
 }
 
 class _EmailFormField extends StatelessWidget {
-  const _EmailFormField({
-    required this.widget,
-  });
+  const _EmailFormField();
 
-  final SignUpFormContent widget;
+  //
 
   @override
   Widget build(BuildContext context) {
     return GeneralTextFormField(
-      onChanged: widget.onEmailChanged,
+      onChanged: context.read<SignUpScreenCubit>().onEmailChanged,
       inputDecoration: const InputDecoration(
         helperText: '',
         hintText: 'Email',
