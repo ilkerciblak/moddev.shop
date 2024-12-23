@@ -58,7 +58,9 @@ extension RotingExtension<T> on Future<ActionResult<T>> {
 
     return this;
   }
+}
 
+extension ActionResultToasterX<T> on Future<ActionResult<T>> {
   /// Shows Snackbar Message of given Future<ActionResult<T>> action,
   ///
   /// - [BuildContext context] app context

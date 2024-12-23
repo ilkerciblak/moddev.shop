@@ -14,6 +14,8 @@ class GeneralTextFormField extends StatefulWidget {
   final int? maxLength;
   final bool secureInput;
   final TextEditingController? textEditingController;
+  final TextInputType keyboardType;
+  final bool enabled;
 
   GeneralTextFormField({
     super.key,
@@ -21,6 +23,8 @@ class GeneralTextFormField extends StatefulWidget {
     required this.inputDecoration,
     this.autovalidateMode = AutovalidateMode.onUnfocus,
     this.secureInput = false,
+    this.enabled = true,
+    this.keyboardType = TextInputType.text,
     this.validatorList,
     this.currentFocusNode,
     this.nextFocusNode,
@@ -66,9 +70,11 @@ class _GeneralTextFormFieldState extends State<GeneralTextFormField>
           onChanged: (value) {
             widget.onChanged(value);
           },
+          keyboardType: widget.keyboardType,
           initialValue: widget.currentValue,
           autovalidateMode: widget.autovalidateMode,
           maxLength: widget.maxLength,
+          enabled: widget.enabled,
           onFieldSubmitted: (_) => widget.nextFocusNode?.requestFocus(),
           decoration: widget.inputDecoration.copyWith(
             suffixIcon: buildObsecurityWidget(),

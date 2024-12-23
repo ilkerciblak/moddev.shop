@@ -6,6 +6,25 @@ final class AppTheme {
     textTheme: AppTextStylesDark.darkTextTheme,
     scaffoldBackgroundColor: AppColors.primaryBlack,
     inputDecorationTheme: AppFormTheme().inputDecorationThemeDark,
+    datePickerTheme: DatePickerThemeData(
+      cancelButtonStyle: ButtonStyle(
+        foregroundColor:
+            WidgetStatePropertyAll(AppTextStyles.labelMedium.color),
+        textStyle: WidgetStatePropertyAll(
+          AppTextStyles.labelLarge.copyWith(
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+      confirmButtonStyle: ButtonStyle(
+        foregroundColor: WidgetStatePropertyAll(AppTextStyles.labelLarge.color),
+        textStyle: WidgetStatePropertyAll(
+          AppTextStyles.labelLarge.copyWith(
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    ),
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
         foregroundColor:
