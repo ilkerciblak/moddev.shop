@@ -42,4 +42,14 @@ final class DummyJsonApi implements IApiService {
       },
     );
   }
+
+  @override
+  ApiTask getAllCategories() {
+    return _networkService.get(
+      path: dotenv.env['GET_ALL_CATEGORIES_PATH']!,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
+    );
+  }
 }

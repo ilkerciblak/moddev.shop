@@ -15,6 +15,8 @@ abstract interface class IApiService {
   ApiTask createUser({
     required Map<String, dynamic> requestBody,
   });
+
+  ApiTask getAllCategories();
 }
 
 typedef ApiTask = TaskEither<Exception, Map<String, dynamic>>;
