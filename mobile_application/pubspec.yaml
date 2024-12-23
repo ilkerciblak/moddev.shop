@@ -27,6 +27,7 @@ dependencies:
   flutter_native_splash: ^2.4.3
   cached_network_image: ^3.4.1
   shimmer: ^3.0.0
+  collection: ^1.18.0
 
 
 dev_dependencies:
