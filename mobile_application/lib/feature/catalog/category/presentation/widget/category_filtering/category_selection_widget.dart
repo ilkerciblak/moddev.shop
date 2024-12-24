@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_application/common/extension/string_extensions.dart';
 import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
+import 'package:mobile_application/common/_common.dart';
 
 /// [Stateless] Category Filtering Button Widget
 ///
@@ -18,6 +18,10 @@ class CategorySelectionWidget extends StatelessWidget {
     required this.isSelected,
   });
 
+  double get selectedOpacity {
+    return isSelected.call(category) ? 1.0 : 0.5;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -34,7 +38,10 @@ class CategorySelectionWidget extends StatelessWidget {
               children: [
                 Text(
                   category.name.capitializeEachWord(),
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium
+                      ?.withOpacity(selectedOpacity),
                 )
               ],
             ),

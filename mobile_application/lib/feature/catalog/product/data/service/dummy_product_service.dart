@@ -10,7 +10,7 @@ final class DummyProductService implements IProductService {
   TaskEither<Exception, List<ProductDto>> getAllProducts(
       QueryParameters? queryParameters) {
     return _api.getAllProducts(queryParameters).map(
-          (r) => (r['data'] as List<dynamic>)
+          (r) => (r['products'] as List<dynamic>)
               .map(
                 (e) => _toProductDtoMapper(e),
               )
@@ -26,7 +26,7 @@ final class DummyProductService implements IProductService {
     return _api
         .getProductsByCategory(queryParameters, categorySlug: categorySlug)
         .map(
-          (r) => (r['data'] as List<dynamic>)
+          (r) => (r['products'] as List<dynamic>)
               .map(
                 (e) => _toProductDtoMapper(e),
               )
@@ -44,26 +44,30 @@ final class DummyProductService implements IProductService {
         );
   }
 
-  ProductDto _toProductDtoMapper(e) {
+  ProductDto _toProductDtoMapper(product) {
     return ProductDto(
-      identifier: e['id'] ?? '',
-      categoryId: e['categoryId'] ?? '',
-      categoryName: e['category'] ?? '',
-      productName: e['title'] ?? '',
-      productDescription: e['description'] ?? '',
-      images: e['images'] ?? [],
-      thumbnailUrl: e['thumbnail'] ?? '',
-      price: e['price'] ?? 0.0,
-      avgRating: e['rating'] ?? 0.0,
-      stockAmount: e['stock'] ?? '',
-      reviews: (e['reviews'] as List<dynamic>).map(
-        (e) {
+      identifier: product['id'] ?? 0,
+      categoryId: product['categoryId'] ?? 0,
+      productName: product['title'] ?? product['name'] ?? '',
+      productDescription: product['description'] ?? 'description',
+      categoryName: product['categoryName'] ?? product['category'] ?? '',
+      price: product['price'] ?? 0,
+      avgRating: product['rating'] ?? 0,
+      stockAmount: product['stock'] ?? 0,
+      thumbnailUrl: product['thumbnail'] ?? '',
+      images: (product['images'] ?? [])
+          .map<String>(
+            (image) => image.toString(),
+          )
+          .toList(),
+      reviews: (product['reviews'] ?? []).map<ReviewDto>(
+        (review) {
           return ReviewDto(
-            rating: e['rating'] ?? 0,
-            comment: e['comment'] ?? '',
-            date: e['date'] ?? DateTime.now(),
-            reviewerName: e['reviewerName'] ?? '',
-            reviewerEmail: e['reviewerEmail'] ?? '',
+            rating: review['rating'],
+            comment: review['comment'],
+            reviewerName: review['reviewerName'],
+            date: DateTime.tryParse(review['date']) ?? DateTime.now(),
+            reviewerEmail: review['reviewerName'],
           );
         },
       ).toList(),

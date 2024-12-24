@@ -29,9 +29,7 @@ mixin ActionResultPresenterMixin<T> on StatelessWidget {
   @protected
   Widget buildSuccess(BuildContext context, T value);
   @protected
-  Widget buildErrorState(BuildContext context, Exception exception) {
-    return buildLoading(context);
-  }
+  Widget buildErrorState(BuildContext context, Exception exception);
 
   Widget buildByStatus(BuildContext context) {
     return ValueListenableBuilder(

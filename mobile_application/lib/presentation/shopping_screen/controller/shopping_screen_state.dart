@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
@@ -27,9 +26,12 @@ class ShoppingScreenState {
     return ShoppingScreenState(
       categories: categories ?? this.categories,
       products: products ?? this.products,
-      selectedCategory: selectedCategory,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
     );
   }
+
+  ShoppingScreenState clearFilter() =>
+      ShoppingScreenState(categories: categories, products: products);
 
   @override
   bool operator ==(covariant ShoppingScreenState other) {

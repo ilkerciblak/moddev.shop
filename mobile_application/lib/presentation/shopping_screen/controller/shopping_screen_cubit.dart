@@ -17,7 +17,7 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
   void initPage() async {
     await Future.wait([
       getCategories(),
-      // getProducts(),
+      getProducts(),
     ]);
   }
 
@@ -38,8 +38,13 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
   Future<ActionResult<List<Product>>> getProducts() async {
     emit(state.copyWith(products: const Loading()));
 
-    var response = await _productRepository.getAllProducts(null).run();
-
+    var response = await _productRepository
+        .getAllProducts(
+          QueryParameters(
+            select: ['title,price,identifier,images'],
+          ),
+        )
+        .run();
     return response.fold(
       (l) {
         emit(state.copyWith(products: Failure(l)));
@@ -75,5 +80,10 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
   void onCategorySelected(Category category) {
     emit(state.copyWith(selectedCategory: category));
     getProductByCategory(category.slug);
+  }
+
+  void clearFilter() {
+    emit(state.clearFilter());
+    getProducts();
   }
 }
