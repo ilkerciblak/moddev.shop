@@ -3,6 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
 
+/// A Stateless Widget Mixin for [Content] named Presentation Layer Elements,
+///
+/// - @override `buildLoading` method for [loading state] of the ActionResult
+/// - @override `buildErrorState` method for [failure state] of the ActionResult
+/// - @override `buildSucess` method for [success state] of the ActionResutl
+///
+/// use `buildByStatus` method in your [StatelessWidget] to show view based on the ActionResult as follows
+///
+/// ```dart
+/// @override
+///  Widget build(BuildContext context) {
+///    return buildByStatus(context);
+///  }
+
 mixin ActionResultPresenterMixin<T> on StatelessWidget {
   @protected
   late final ActionResult<T> actionResult;
@@ -15,7 +29,9 @@ mixin ActionResultPresenterMixin<T> on StatelessWidget {
   @protected
   Widget buildSuccess(BuildContext context, T value);
   @protected
-  Widget buildErrorState(BuildContext context, Exception exception);
+  Widget buildErrorState(BuildContext context, Exception exception) {
+    return buildLoading(context);
+  }
 
   Widget buildByStatus(BuildContext context) {
     return ValueListenableBuilder(

@@ -6,6 +6,13 @@ import 'package:mobile_application/common/_common.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_application/common/service/shared_preferences/_shared_preferences.dart';
 import 'package:mobile_application/feature/authentication/data/service/dummy_authentication_service.dart';
+import 'package:mobile_application/feature/catalog/category/application/_application.dart';
+import 'package:mobile_application/feature/catalog/category/data/_data.dart';
+import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
+import 'package:mobile_application/feature/catalog/product/application/_application.dart';
+import 'package:mobile_application/feature/catalog/product/data/_data.dart';
+import 'package:mobile_application/feature/catalog/product/data/repository/product_repository.dart';
+import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_application/feature/_feature.dart';
@@ -109,4 +116,27 @@ Future<void> initProjectDependencies() async {
           UserRepository(userService: userService));
 
   await getIt.allReady();
+
+  // Catalog Feature
+
+  // Category
+  final ICategoryService categoryService =
+      getIt.registerSingleton<ICategoryService>(
+    DummyCategoryService(api: apiService),
+  );
+
+  final ICategoryRepository categoryRepository =
+      getIt.registerSingleton<ICategoryRepository>(
+          CategoryRepository(categoryService: categoryService));
+
+  // Product
+
+  final IProductService productService =
+      getIt.registerSingleton<IProductService>(
+    DummyProductService(api: apiService),
+  );
+
+  final IProductRepository productRepository =
+      getIt.registerSingleton<IProductRepository>(
+          ProductRepository(productService: productService));
 }
