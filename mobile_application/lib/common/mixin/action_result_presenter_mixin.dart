@@ -5,11 +5,26 @@ import 'package:mobile_application/common/_common.dart';
 
 /// A Stateless Widget Mixin for [Content] named Presentation Layer Elements,
 ///
-/// - @override `buildLoading` method for [loading state] of the ActionResult
-/// - @override `buildErrorState` method for [failure state] of the ActionResult
-/// - @override `buildSucess` method for [success state] of the ActionResutl
+/// - @override [buildLoading] method for [loading state] of the ActionResult
+/// - @override [buildErrorState] method for [failure state] of the ActionResult
+/// - @override [buildSuccess] method for [success state] of the ActionResutl
 ///
-/// use `buildByStatus` method in your [StatelessWidget] to show view based on the ActionResult as follows
+/// Usage:
+///
+/// Override or assing a [ActionResult<T>] object as [actionResult] in your constructors closure:
+///
+/// ```dart
+///
+/// final ActionResult<Product> productResult;
+///
+/// SomeStatelessWidget({super.key}){
+///   actionResult = productResult;
+/// }
+///
+/// ```
+///
+///
+/// Built UI with using `buildByStatus` method in your [StatelessWidget] to show view based on the ActionResult as follows
 ///
 /// ```dart
 /// @override
