@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_application/common/_common.dart';
+
 import 'package:mobile_application/feature/catalog/_catalog.dart';
 import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
+import 'package:mobile_application/feature/catalog/product/presentation/widget/_widget.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_cubit.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_state.dart';
 
@@ -16,6 +18,7 @@ class ShoppingScreen extends StatefulWidget {
 
 class _ShoppingScreenState extends State<ShoppingScreen> {
   late ShoppingScreenCubit cb;
+  late SearchController searchController = SearchController();
 
   @override
   void initState() {
@@ -30,18 +33,37 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       child: SafeArea(
           child: CustomScrollView(
         slivers: [
-          BlocBuilder<ShoppingScreenCubit, ShoppingScreenState>(
-            bloc: cb,
-            builder: (context, state) => SliverToBoxAdapter(
-              child: CategoryListingContent(
-                key: ObjectKey(state.categories),
-                categoryResult: state.categories,
-                onTap: (value) => cb.onCategorySelected(value),
-              ),
+          SliverAppBar(
+            clipBehavior: Clip.none,
+
+            scrolledUnderElevation: 0.0,
+            titleSpacing: 0.0,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            floating: true,
+
+            actions: [
+              CustomSearchAnchor<Product>.icon(
+                resultFetchingFunction: (search) => cb.onSearch(query: search),
+                resultsBuilder: (value) =>
+                    ProductSearchResultComponent(product: value),
+                loadingBuilder: const ShimmerSearchResultComponent(),
+                queryHintText: 'Search for products',
+              )
+            ],
+            title: BlocBuilder<ShoppingScreenCubit, ShoppingScreenState>(
+              bloc: cb,
+              builder: (context, state) {
+                return CategoryListingContent(
+                  key: ObjectKey(state.selectedCategory),
+                  categoryResult: state.categories,
+                  onTap: (value) {
+                    cb.onCategorySelected(value);
+                  },
+                );
+              },
             ),
-          ),
-          SliverToBoxAdapter(
-            child: AppSpacing.verticalGapMd,
+
+            // title: ,
           ),
           BlocSelectorT<Category?>(
             bloc: cb,

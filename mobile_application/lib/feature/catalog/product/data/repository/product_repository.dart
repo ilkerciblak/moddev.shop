@@ -10,8 +10,13 @@ final class ProductRepository implements IProductRepository {
       : _productService = productService;
   @override
   TaskEither<Exception, List<Product>> getAllProducts(
-      QueryParameters? queryParameters) {
-    return _productService.getAllProducts(queryParameters).map(
+    QueryParameters? queryParameters,
+  ) {
+    return _productService
+        .getAllProducts(
+          queryParameters: queryParameters,
+        )
+        .map(
           (r) => r
               .map(
                 (e) => e.toEntity(),

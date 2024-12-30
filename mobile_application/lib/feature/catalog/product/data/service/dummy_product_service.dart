@@ -6,10 +6,16 @@ final class DummyProductService implements IProductService {
   final IApiService _api;
 
   DummyProductService({required IApiService api}) : _api = api;
+
   @override
-  TaskEither<Exception, List<ProductDto>> getAllProducts(
-      QueryParameters? queryParameters) {
-    return _api.getAllProducts(queryParameters).map(
+  TaskEither<Exception, List<ProductDto>> getAllProducts({
+    QueryParameters? queryParameters,
+  }) {
+    return _api
+        .getAllProducts(
+          queryParameters: queryParameters,
+        )
+        .map(
           (r) => (r['products'] as List<dynamic>)
               .map(
                 (e) => _toProductDtoMapper(e),
