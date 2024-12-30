@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_application/feature/_feature.dart';
+import 'package:mobile_application/feature/catalog/_catalog.dart';
 import 'package:mobile_application/presentation/_presentation.dart';
 
 @immutable
@@ -12,6 +13,7 @@ final class AppRouting {
       PresentationRouteRegistrar.splashRoute,
       AuthenticationRouteRegistrar.loginRoute,
       UserRouteRegistrar.signUpScreen,
+      ProductRouteRegistrar.productDetailRoute,
     ],
   );
 }
