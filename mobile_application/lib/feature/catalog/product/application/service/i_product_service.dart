@@ -14,6 +14,6 @@ abstract interface class IProductService {
 
   TaskEither<Exception, ProductDto> getProductById(
     QueryParameters? queryParameters, {
-    required int productId,
+    required String productId,
   });
 }

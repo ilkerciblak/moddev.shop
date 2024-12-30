@@ -43,7 +43,7 @@ final class DummyProductService implements IProductService {
   @override
   TaskEither<Exception, ProductDto> getProductById(
     QueryParameters? queryParameters, {
-    required int productId,
+    required String productId,
   }) {
     return _api.getProductById(queryParameters, productId: productId).map(
           (r) => _toProductDtoMapper(r),

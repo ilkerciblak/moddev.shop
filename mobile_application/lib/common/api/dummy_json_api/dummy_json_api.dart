@@ -70,7 +70,7 @@ final class DummyJsonApi implements IApiService {
   @override
   ApiTask getProductById(
     QueryParameters? queryParameters, {
-    required int productId,
+    required String productId,
   }) {
     return _networkService.get(
       path: dotenv.env['GET_PRODUCT_BY_ID']!.replaceFirst(

@@ -26,9 +26,10 @@ final class ProductRepository implements IProductRepository {
   }
 
   @override
-  TaskEither<Exception, Product> getProductById(
-      QueryParameters? queryParameters,
-      {required int productId}) {
+  TaskEither<Exception, Product> getProductById({
+    QueryParameters? queryParameters,
+    required String productId,
+  }) {
     return _productService
         .getProductById(queryParameters, productId: productId)
         .map(

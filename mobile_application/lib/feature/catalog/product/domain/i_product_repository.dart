@@ -7,9 +7,9 @@ abstract interface class IProductRepository {
     QueryParameters? queryParameters,
   );
 
-  TaskEither<Exception, Product> getProductById(
-    QueryParameters? queryParameters, {
-    required int productId,
+  TaskEither<Exception, Product> getProductById({
+    QueryParameters? queryParameters,
+    required String productId,
   });
 
   TaskEither<Exception, List<Product>> getProductsByCategory(

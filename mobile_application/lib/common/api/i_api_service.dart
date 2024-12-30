@@ -34,7 +34,7 @@ abstract interface class IApiService {
 
   ApiTask getProductById(
     QueryParameters? queryParameters, {
-    required int productId,
+    required String productId,
   });
 
   /// Api Request for [Get Product List by their Categories]
