@@ -7,3 +7,4 @@ export 'mixin/_mixin.dart';
 export 'presentation/_presentation.dart';
 export 'helper/_helper.dart';
 export 'extension/_extension.dart';
+export 'delegate/_delegate.dart';

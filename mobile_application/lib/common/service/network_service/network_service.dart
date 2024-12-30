@@ -26,7 +26,6 @@ final class NetworkService {
         Uri uri = Uri.parse(baseUrl).replace(
           path: path,
           queryParameters: queryParameters,
-          // query: searchString,
         );
         await Future.delayed(const Duration(seconds: 1));
         var result = await _sendRequest(

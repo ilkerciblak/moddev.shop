@@ -24,7 +24,10 @@ abstract interface class IApiService {
 
   /// Api Request for [Getting All Products],
   ///
-  ApiTask getAllProducts(QueryParameters? queryParameters);
+  /// - @param queryParameters
+  ApiTask getAllProducts({
+    QueryParameters? queryParameters,
+  });
 
   /// Api Request for [Get A Single Product with Id]
   ///

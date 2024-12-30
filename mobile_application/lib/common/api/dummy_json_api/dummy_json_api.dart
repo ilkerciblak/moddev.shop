@@ -55,7 +55,9 @@ final class DummyJsonApi implements IApiService {
   }
 
   @override
-  ApiTask getAllProducts(QueryParameters? queryParameters) {
+  ApiTask getAllProducts({
+    QueryParameters? queryParameters,
+  }) {
     return _networkService.get(
       path: dotenv.env['GET_ALL_PRODUCTS']!,
       queryParameters: queryParameters?.toQueryParameter(),
