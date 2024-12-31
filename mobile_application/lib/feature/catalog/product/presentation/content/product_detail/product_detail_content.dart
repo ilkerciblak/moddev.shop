@@ -29,7 +29,16 @@ class ProductDetailContent extends StatelessWidget
 
   @override
   Widget buildLoading(BuildContext context) {
-    return const CircularProgressIndicator.adaptive();
+    return _buildWrapper(context,
+        headerWidget: SliverSafeArea(
+            sliver: SliverToBoxAdapter(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 2 / 3,
+          ),
+        )),
+        detailWidget: const SliverFillRemaining(
+          child: ShimmerProductDetailContainer(),
+        ));
   }
 
   @override
@@ -37,15 +46,14 @@ class ProductDetailContent extends StatelessWidget
     return _buildWrapper(
       context,
       headerWidget: SliverSafeArea(
-        sliver: SliverResizingHeader(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 2 / 3,
-            child: ProductDetailHeader(
-              imgUrlList: value.images,
-            ),
+          sliver: SliverResizingHeader(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height * 2 / 3,
+          child: ProductDetailHeader(
+            imgUrlList: value.images,
           ),
         ),
-      ),
+      )),
       detailWidget: SliverToBoxAdapter(
         child: ProductDetailContainer(product: value),
       ),

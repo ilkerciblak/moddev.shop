@@ -20,7 +20,7 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      fit: StackFit.expand,
+      fit: StackFit.loose,
       children: [
         PageView.builder(
           allowImplicitScrolling: false,
@@ -67,9 +67,8 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
             ),
           ),
         ),
-        Positioned(
-          left: 16.0,
-          top: 16.0,
+        Align(
+          alignment: Alignment.bottomLeft,
           child: IconButton(
               onPressed: () {
                 context.pop();
@@ -78,6 +77,13 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
                 Icons.arrow_back,
                 color: AppColors.primaryWhite,
               )),
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: TextButton(
+            onPressed: () {},
+            child: const Text('Similar Products'),
+          ),
         ),
       ],
     );
