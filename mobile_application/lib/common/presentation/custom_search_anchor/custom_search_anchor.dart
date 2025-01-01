@@ -206,6 +206,8 @@ class CustomSearchAnchor<T> extends StatefulWidget {
 
   final Widget? loadingBuilder;
 
+  final bool initialRun;
+
   factory CustomSearchAnchor.bar() => _CustomSearchAnchorWithBar();
 
   ///`Factory constructor`
@@ -274,6 +276,7 @@ class CustomSearchAnchor<T> extends StatefulWidget {
     this.textInputAction = TextInputAction.search,
     this.viewBuilderFunction,
     this.loadingBuilder,
+    this.initialRun = false,
   }) {
     assert(searchSuggesstionBuilder != null || resultsBuilder != null,
         'Search Suggestion Builder and Result Builder Functions both not assigned');
@@ -397,6 +400,12 @@ class _CustomSearchAnchorState<T> extends State<CustomSearchAnchor<T>>
             }
           : null,
       suggestionsBuilder: (context, controller) async {
+        if (widget.initialRun) {
+          results =
+              await widget.resultFetchingFunction?.call(controller.text) ?? [];
+
+          // await _updateSuggestions();
+        }
         if (widget.resultsBuilder != null && results.isNotEmpty && !isLoading) {
           return results.map((e) => widget.resultsBuilder!.call(e)).toList();
         }
