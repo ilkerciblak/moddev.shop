@@ -42,13 +42,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
             floating: true,
 
             actions: [
-              CustomSearchAnchor<Product>.icon(
-                resultFetchingFunction: (search) => cb.onSearch(query: search),
-                resultsBuilder: (value) =>
-                    ProductSearchResultComponent(product: value),
-                loadingBuilder: const ShimmerSearchResultComponent(),
-                queryHintText: 'Search for products',
-              )
+              ProductSearchComponent.searchIcon(),
             ],
             title: BlocBuilder<ShoppingScreenCubit, ShoppingScreenState>(
               bloc: cb,

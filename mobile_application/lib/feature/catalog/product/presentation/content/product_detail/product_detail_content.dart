@@ -50,7 +50,7 @@ class ProductDetailContent extends StatelessWidget
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 2 / 3,
           child: ProductDetailHeader(
-            imgUrlList: value.images,
+            product: value,
           ),
         ),
       )),

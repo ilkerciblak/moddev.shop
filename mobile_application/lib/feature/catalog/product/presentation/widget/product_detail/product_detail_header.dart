@@ -1,13 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
+import 'package:mobile_application/feature/catalog/product/presentation/widget/product_search_component/product_search_component.dart';
 
 class ProductDetailHeader extends StatefulWidget {
-  final List<String> imgUrlList;
+  final Product product;
   const ProductDetailHeader({
     super.key,
-    required this.imgUrlList,
+    required this.product,
   });
 
   @override
@@ -24,7 +25,7 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
       children: [
         PageView.builder(
           allowImplicitScrolling: false,
-          itemCount: widget.imgUrlList.length,
+          itemCount: widget.product.images.length,
           controller: _pageController,
           onPageChanged: (value) {
             _pageController.animateToPage(
@@ -36,7 +37,7 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
           },
           itemBuilder: (context, index) {
             return CachedNetworkImageWidget(
-              imageUrl: widget.imgUrlList[index],
+              imageUrl: widget.product.images[index],
             );
           },
         ),
@@ -47,7 +48,7 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: List.generate(
-              widget.imgUrlList.length,
+              widget.product.images.length,
               (index) => ValueListenableBuilder(
                 valueListenable: pageCounter,
                 builder: (context, value, child) => AnimatedContainer(
@@ -80,9 +81,8 @@ class _ProductDetailHeaderState extends State<ProductDetailHeader> {
         ),
         Align(
           alignment: Alignment.bottomRight,
-          child: TextButton(
-            onPressed: () {},
-            child: const Text('Similar Products'),
+          child: ProductSearchComponent.searchSimilar(
+            query: widget.product.categoryName,
           ),
         ),
       ],
