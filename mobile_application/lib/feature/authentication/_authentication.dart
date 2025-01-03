@@ -1,1 +1,2 @@
-export 'presentation/authentication_route_registrar.dart';
+export 'presentation/_presentation.dart';
+export 'data/_data.dart';

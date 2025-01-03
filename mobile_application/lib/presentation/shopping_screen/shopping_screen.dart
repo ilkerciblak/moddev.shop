@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_application/common/_common.dart';
 
-import 'package:mobile_application/feature/catalog/_catalog.dart';
 import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
-import 'package:mobile_application/feature/catalog/product/presentation/widget/_widget.dart';
+import 'package:mobile_application/presentation/shopping_screen/content/app_bar/shopping_screen_app_bar_content.dart';
+import 'package:mobile_application/presentation/shopping_screen/content/product_list/product_listing_content.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_cubit.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_state.dart';
 
@@ -33,65 +33,66 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       child: SafeArea(
           child: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            clipBehavior: Clip.none,
-
-            scrolledUnderElevation: 0.0,
-            titleSpacing: 0.0,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            floating: true,
-
-            actions: [
-              ProductSearchComponent.searchIcon(),
-            ],
-            title: BlocBuilder<ShoppingScreenCubit, ShoppingScreenState>(
-              bloc: cb,
-              builder: (context, state) {
-                return CategoryListingContent(
-                  key: ObjectKey(state.selectedCategory),
-                  categoryResult: state.categories,
-                  onTap: (value) {
-                    cb.onCategorySelected(value);
-                  },
-                );
-              },
-            ),
-
-            // title: ,
-          ),
-          BlocSelectorT<Category?>(
-            bloc: cb,
-            selector: (state) => state.selectedCategory,
-            builder: (context, state) {
-              return SliverAppBar(
-                key: ObjectKey(state),
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                pinned: true,
-                actions: [
-                  if (state != null)
-                    TextButton(
-                        onPressed: cb.clearFilter, child: Text('Clear Filter'))
-                ],
-                centerTitle: false,
-                title: Text(
-                  state?.name ?? 'Featured Products',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              );
-            },
-          ),
-          BlocSelectorT<ActionResult<List<Product>>>(
-            bloc: cb,
-            selector: (state) => state.products,
-            builder: (context, state) {
-              return ProductListingContent(
-                key: ObjectKey(state),
-                productResult: state,
-              );
-            },
-          )
+          const ShoppingScreenAppBarContent(),
+          _FilteredCategoryHeader(cb: cb),
+          _ProductListBuilder(cb: cb)
         ],
       )),
+    );
+  }
+}
+
+class _ProductListBuilder extends StatelessWidget {
+  const _ProductListBuilder({
+    required this.cb,
+  });
+
+  final ShoppingScreenCubit cb;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelectorT<ActionResult<List<Product>>>(
+      bloc: cb,
+      selector: (state) => state.products,
+      builder: (context, state) {
+        return ProductListingContent(
+          key: ObjectKey(state),
+          productResult: state,
+        );
+      },
+    );
+  }
+}
+
+class _FilteredCategoryHeader extends StatelessWidget {
+  const _FilteredCategoryHeader({
+    required this.cb,
+  });
+
+  final ShoppingScreenCubit cb;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelectorT<Category?>(
+      bloc: cb,
+      selector: (state) => state.selectedCategory,
+      builder: (context, state) {
+        return SliverAppBar(
+          key: ObjectKey(state),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          pinned: true,
+          actions: [
+            if (state != null)
+              TextButton(
+                  onPressed: cb.clearFilter, child: const Text('Clear Filter'))
+          ],
+          centerTitle: false,
+          title: Text(
+            state?.name ?? 'Featured Products',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        );
+      },
     );
   }
 }

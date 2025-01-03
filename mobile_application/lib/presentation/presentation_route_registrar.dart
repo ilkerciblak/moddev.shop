@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:mobile_application/feature/user/presentation/user_route_registrar.dart';
+import 'package:mobile_application/presentation/user/user_route_registrar.dart';
 import 'package:mobile_application/presentation/_presentation.dart';
 import 'package:mobile_application/presentation/splash_screen/splash_screen.dart';
 
