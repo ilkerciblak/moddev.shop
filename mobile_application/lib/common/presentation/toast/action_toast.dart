@@ -7,12 +7,14 @@ final class ActionToast extends SnackBar {
     super.key,
     required Color backgroundColor,
     required this.message,
+    SnackBarAction? snackBarAction,
 
     // required this.action,
   }) : super(
           content: Text(message),
           backgroundColor: backgroundColor.withOpacity(0.5),
           behavior: SnackBarBehavior.floating,
+          action: snackBarAction,
         );
 
   factory ActionToast.successToast(String message) => ActionToast(
@@ -20,8 +22,18 @@ final class ActionToast extends SnackBar {
         message: message,
       );
 
-  factory ActionToast.failureToast(String message) => ActionToast(
+  factory ActionToast.failureToast({
+    required String message,
+    void Function()? retry,
+  }) =>
+      ActionToast(
         backgroundColor: AppColors.primaryAlert,
         message: message,
+        snackBarAction: retry != null
+            ? SnackBarAction(
+                label: 'Try Again',
+                onPressed: retry,
+              )
+            : null,
       );
 }

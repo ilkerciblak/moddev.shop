@@ -12,9 +12,13 @@ extension ActionToaster on BuildContext {
 
   void showErrorToast({
     required String message,
+    void Function()? retry,
   }) {
     ScaffoldMessenger.maybeOf(this)?.showSnackBar(
-      ActionToast.failureToast(message),
+      ActionToast.failureToast(
+        message: message,
+        retry: retry,
+      ),
     );
   }
 }
