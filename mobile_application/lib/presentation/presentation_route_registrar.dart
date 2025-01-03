@@ -1,29 +1,56 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:mobile_application/presentation/shopping_screen/shopping_screen_registrar.dart';
 import 'package:mobile_application/presentation/user/user_route_registrar.dart';
 import 'package:mobile_application/presentation/_presentation.dart';
 import 'package:mobile_application/presentation/splash_screen/splash_screen.dart';
 
 class PresentationRouteRegistrar {
-  static StatefulShellRoute get homeRoute => StatefulShellRoute.indexedStack(
+  static StatefulShellRoute get homeRoute => StatefulShellRoute(
         builder: (context, state, navigationShell) {
           return HomeScreen(navigationShell: navigationShell);
         },
         branches: [
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/shop',
-              name: 'shop-screen',
-              builder: (context, state) {
-                return const ShoppingScreen();
-              },
-            ),
-          ]),
+          StatefulShellBranch(
+            routes: [
+              ShoppingScreenRegistrar.shoppingRoute,
+            ],
+          ),
           StatefulShellBranch(
             routes: [
               UserRouteRegistrar.userRoute,
             ],
           )
         ],
+        navigatorContainerBuilder: (context, navigationShell, children) {
+          final List<Widget> stackWidgets = children.mapWithIndex(
+            (t, index) {
+              if (index == 1) {
+                return Visibility(
+                  maintainState: false,
+                  visible: navigationShell.currentIndex == 1,
+                  child: TickerMode(
+                    enabled: navigationShell.currentIndex == 1,
+                    child: t,
+                  ),
+                );
+              }
+
+              return Visibility.maintain(
+                visible: navigationShell.currentIndex == index,
+                child: TickerMode(
+                  enabled: navigationShell.currentIndex == index,
+                  child: t,
+                ),
+              );
+            },
+          ).toList();
+          return IndexedStack(
+            index: navigationShell.currentIndex,
+            children: stackWidgets,
+          );
+        },
       );
 
   static RouteBase get splashRoute => GoRoute(

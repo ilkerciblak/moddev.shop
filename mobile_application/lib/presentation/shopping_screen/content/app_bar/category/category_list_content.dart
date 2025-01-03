@@ -4,7 +4,9 @@ import 'package:mobile_application/feature/catalog/category/domain/_domain.dart'
 import 'package:mobile_application/feature/catalog/category/presentation/_presentation.dart';
 
 class CategoryListingContent extends StatelessWidget
-    with ActionResultPresenterMixin<List<Category>> {
+    with
+        ActionResultPresenterMixin<List<Category>>,
+        ActionResultSnackbarMixin<List<Category>> {
   final ActionResult<List<Category>> categoryResult;
   final ValueSetter<Category> onTap;
   final bool Function(Category) isSelectedFunction;
@@ -20,12 +22,13 @@ class CategoryListingContent extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    showResultSnackBar(context);
     return buildByStatus(context);
   }
 
   @override
   Widget buildErrorState(BuildContext context, Exception exception) {
-    return Text(exception.toString());
+    return buildLoading(context);
   }
 
   @override

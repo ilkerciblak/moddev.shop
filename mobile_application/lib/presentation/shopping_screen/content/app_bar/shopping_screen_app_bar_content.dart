@@ -25,7 +25,7 @@ class ShoppingScreenAppBarContent extends StatelessWidget {
         bloc: cb,
         builder: (context, state) {
           return CategoryListingContent(
-            key: ObjectKey(state.selectedCategory),
+            key: ObjectKey(state.categories),
             categoryResult: state.categories,
             onTap: (value) {
               cb.onCategorySelected(value);

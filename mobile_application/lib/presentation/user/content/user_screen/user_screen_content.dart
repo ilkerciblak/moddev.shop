@@ -6,7 +6,7 @@ import 'package:mobile_application/presentation/user/screen/user_tab/controller/
 import 'package:mobile_application/feature/user/presentation/widget/_widget.dart';
 
 class UserScreenContent extends StatelessWidget
-    with ActionResultPresenterMixin {
+    with ActionResultPresenterMixin<User>, ActionResultSnackbarMixin<User> {
   final ActionResult<User> userFetchResult;
 
   UserScreenContent({
@@ -18,12 +18,16 @@ class UserScreenContent extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    showResultSnackBar(
+      context,
+      retry: context.read<UserScreenCubit>().getCurrentUser,
+    );
     return buildByStatus(context);
   }
 
   @override
   Widget buildErrorState(BuildContext context, Exception exception) {
-    return const ShimmerUserScreenHeader();
+    return buildLoading(context);
   }
 
   @override
@@ -44,7 +48,7 @@ class UserScreenContent extends StatelessWidget
                 .showActionResultToast(context)
                 .withGoNamedRoute(context, pathName: 'login-screen');
           },
-          child: Text('Logout'),
+          child: const Text('Logout'),
         )
       ],
     );

@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/presentation/widget/product_detail/_product_detail.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_application/presentation/catalog/product_detail/screen/controller/product_detail_cubit.dart';
 
 class ProductDetailContent extends StatelessWidget
-    with ActionResultPresenterMixin<Product> {
+    with
+        ActionResultPresenterMixin<Product>,
+        ActionResultSnackbarMixin<Product> {
   final ActionResult<Product> productResult;
   ProductDetailContent({
     super.key,
@@ -15,15 +19,19 @@ class ProductDetailContent extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    showResultSnackBar(
+      context,
+      retry: context.read<ProductDetailCubit>().getProduct,
+    );
     return buildByStatus(context);
   }
 
   @override
   Widget buildErrorState(BuildContext context, Exception exception) {
-    context.showErrorToast(message: exception.toString());
     return _buildWrapper(context,
-        errorWidget: Text(
-          exception.toString(),
+        errorWidget: CommonErrorBuilder(
+          exception: exception,
+          onRetry: context.read<ProductDetailCubit>().getProduct,
         ));
   }
 

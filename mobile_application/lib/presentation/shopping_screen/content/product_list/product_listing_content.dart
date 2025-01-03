@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/presentation/widget/_widget.dart';
+import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductListingContent extends StatelessWidget
-    with ActionResultPresenterMixin<List<Product>> {
+    with
+        ActionResultPresenterMixin<List<Product>>,
+        ActionResultSnackbarMixin<List<Product>> {
   final ActionResult<List<Product>> productResult;
   ProductListingContent({super.key, required this.productResult}) {
     actionResult = productResult;
@@ -18,7 +22,10 @@ class ProductListingContent extends StatelessWidget
   @override
   Widget buildErrorState(BuildContext context, Exception exception) {
     return SliverFillRemaining(
-      child: Text(exception.toString()),
+      child: CommonErrorBuilder(
+        exception: exception,
+        onRetry: context.read<ShoppingScreenCubit>().getProducts,
+      ),
     );
   }
 
@@ -36,7 +43,6 @@ class ProductListingContent extends StatelessWidget
 
   @override
   Widget buildSuccess(BuildContext context, value) {
-    // ShoppingScreenCubit cb = context.read<ShoppingScreenCubit>();
     return _buildWrapper(
       itemCount: value.length,
       itemBuilder: (index) => Padding(

@@ -16,6 +16,7 @@ final class ProductDetailCubit extends Cubit<ProductDetailState> {
   }
 
   Future<ActionResult<Product>> getProduct() async {
+    emit(state.copyWith(product: const Loading()));
     var response = await _productRepository
         .getProductById(
           productId: productId,
