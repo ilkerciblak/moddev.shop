@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mobile_application/common/_common.dart';
-import 'package:mobile_application/common/extension/context_extensions.dart';
+import 'package:mobile_application/common/extension/context_extensions/_context_extensions.dart';
+import 'package:mobile_application/common/result/result.dart';
 
 /// An [Future<ActionResult<T>>] extension that allows routing actions based on whether action result is success or fails.
 /// [ActionResult] is typedefinition of [Result<Exception,T>]
@@ -80,11 +80,11 @@ extension ActionResultToasterX<T> on Future<ActionResult<T>> {
             ScaffoldMessenger.maybeOf(context)
                 ?.removeCurrentSnackBar(reason: SnackBarClosedReason.hide);
             if (successMessage != null) {
-              context.showSuccessToast(message: successMessage);
+              context.toaster.showSuccessToast(message: successMessage);
             }
           },
           onFailure: (l) {
-            context.showErrorToast(
+            context.toaster.showFailureToast(
               message: l.toString(),
             );
           },
