@@ -13,10 +13,10 @@ class ShimmerCategorySelectionWidget extends StatelessWidget {
       highlightColor: AppColors.primarySilver,
       child: Container(
         width: 50,
-        height: Theme.of(context).textTheme.titleMedium?.fontSize,
+        height: context.theme.titleMedium?.fontSize,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(
-            Theme.of(context).textTheme.titleMedium?.fontSize ?? 13,
+            context.theme.titleMedium?.fontSize ?? 13,
           ),
           color: Colors.white,
         ),

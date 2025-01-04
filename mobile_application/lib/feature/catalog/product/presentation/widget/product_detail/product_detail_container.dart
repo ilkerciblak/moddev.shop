@@ -94,9 +94,9 @@ class _DummyReviews extends StatelessWidget {
                   children: [
                     Text(
                       review.reviewerName,
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColors.primaryBlack,
-                          ),
+                      style: context.theme.bodySmall?.copyWith(
+                        color: AppColors.primaryBlack,
+                      ),
                     ),
                     const Spacer(),
                     Wrap(
@@ -104,7 +104,7 @@ class _DummyReviews extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.star,
-                          size: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                          size: context.theme.bodyLarge?.fontSize,
                         ),
                         Text(
                           review.rating.toString(),
@@ -175,9 +175,9 @@ class _ProductDescriptionWidget extends StatelessWidget {
         AppSpacing.verticalGapMd,
         Text(
           product.productDescription,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.primaryBlack,
-              ),
+          style: context.theme.bodyMedium?.copyWith(
+            color: AppColors.primaryBlack,
+          ),
         )
       ],
     );
@@ -220,7 +220,7 @@ class _AverageRatingAndReviews extends StatelessWidget {
       children: [
         Icon(
           Icons.star,
-          size: Theme.of(context).textTheme.bodyLarge?.fontSize,
+          size: context.theme.bodyLarge?.fontSize,
         ),
         Text(
           product.avgRating.toString(),

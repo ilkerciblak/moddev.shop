@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/authentication/presentation/widget/_widget.dart';
 
 class SocialLoginContent extends StatelessWidget {
@@ -11,7 +12,7 @@ class SocialLoginContent extends StatelessWidget {
       children: [
         Text(
           'Or You Can Continue with Social Accounts',
-          style: Theme.of(context).textTheme.bodySmall,
+          style: context.theme.bodySmall,
         ),
         ...[
           const FacebookLoginButton(),

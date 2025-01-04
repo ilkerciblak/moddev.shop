@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_application/feature/user/domain/_domain.dart';
+import 'package:mobile_application/common/_common.dart';
 
 class UserScreenHeader extends StatelessWidget {
   final User user;
@@ -27,11 +28,11 @@ class UserScreenHeader extends StatelessWidget {
             ),
             Text(
               user.email,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: context.theme.bodyMedium,
             ),
             Text(
               '${user.firstName} ${user.lastName}',
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: context.theme.bodyMedium,
             )
           ],
         ));

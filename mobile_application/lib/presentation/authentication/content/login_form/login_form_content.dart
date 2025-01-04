@@ -60,7 +60,8 @@ class LoginFormContent extends StatelessWidget with GlobalFormMixinStl {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        context.showErrorToast(message: 'HAH IDIOT XD');
+                        context.toaster
+                            .showFailureToast(message: 'HAH IDIOT XD');
                       },
                       child: const Text('Forgotten Password'),
                     ),

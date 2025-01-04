@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:mobile_application/common/result/result.dart';
@@ -60,7 +62,7 @@ mixin ActionResultSnackbarMixin<T> on Widget {
         switch (_actionResult.value) {
           case Failure failure:
             if (showFailure) {
-              context.showErrorToast(
+              context.toaster.showFailureToast(
                 message: failure.exception.toString(),
                 retry: retry,
               );
@@ -68,12 +70,12 @@ mixin ActionResultSnackbarMixin<T> on Widget {
             break;
           case Success success:
             if (showSuccess) {
-              context.showSuccessToast(message: 'Successfully done');
+              context.toaster.showSuccessToast(message: 'Successfully done');
             }
             break;
           case Loading loading:
             if (showLoading) {
-              context.showSuccessToast(message: 'Loading, Please wait');
+              context.toaster.showSuccessToast(message: 'Loading, Please wait');
             }
             break;
           case Idle idle:
@@ -81,7 +83,7 @@ mixin ActionResultSnackbarMixin<T> on Widget {
           default:
             break;
         }
-        // context.showErrorToast(message: 'zaa');
+        // context.toaster.showFailureError(message: 'zaa');
       },
     );
   }

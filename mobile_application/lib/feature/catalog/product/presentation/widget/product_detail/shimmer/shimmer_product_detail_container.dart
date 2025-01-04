@@ -25,11 +25,11 @@ class ShimmerProductDetailContainer extends StatelessWidget {
             baseColor: AppColors.primarySilver,
             highlightColor: AppColors.primaryBlack,
             child: Container(
-              height: Theme.of(context).textTheme.headlineMedium?.fontSize,
+              height: context.theme.headlineMedium?.fontSize,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(
-                    Theme.of(context).textTheme.headlineMedium?.fontSize ?? 11),
+                    context.theme.headlineMedium?.fontSize ?? 11),
               ),
             ),
           ),
@@ -41,12 +41,11 @@ class ShimmerProductDetailContainer extends StatelessWidget {
                 baseColor: AppColors.primarySilver,
                 highlightColor: AppColors.primaryWhite,
                 child: Container(
-                  height: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                  height: context.theme.headlineSmall?.fontSize,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
-                        Theme.of(context).textTheme.headlineSmall?.fontSize ??
-                            11),
+                        context.theme.headlineSmall?.fontSize ?? 11),
                   ),
                 ),
               )),
@@ -56,12 +55,11 @@ class ShimmerProductDetailContainer extends StatelessWidget {
                 baseColor: AppColors.primarySilver,
                 highlightColor: AppColors.primaryWhite,
                 child: Container(
-                  height: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                  height: context.theme.headlineSmall?.fontSize,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
-                        Theme.of(context).textTheme.headlineSmall?.fontSize ??
-                            11),
+                        context.theme.headlineSmall?.fontSize ?? 11),
                   ),
                 ),
               ))

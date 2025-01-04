@@ -89,7 +89,7 @@ class _FilteredCategoryHeader extends StatelessWidget {
           centerTitle: false,
           title: Text(
             state?.name ?? 'Featured Products',
-            style: Theme.of(context).textTheme.titleLarge,
+            style: context.theme.titleLarge,
           ),
         );
       },

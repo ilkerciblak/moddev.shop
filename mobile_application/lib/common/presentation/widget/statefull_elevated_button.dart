@@ -33,7 +33,7 @@ class ElevatedStatefullButton extends StatelessWidget {
       child: !_actionResult.isLoading
           ? Text(
               btnText,
-              style: btnTextStyle ?? Theme.of(context).textTheme.titleLarge,
+              style: btnTextStyle ?? context.theme.titleLarge,
             )
           : const CircularProgressIndicator.adaptive(),
     );
