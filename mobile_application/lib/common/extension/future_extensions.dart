@@ -77,8 +77,7 @@ extension ActionResultToasterX<T> on Future<ActionResult<T>> {
       (result) {
         return result.match(
           onSuccess: (r) {
-            ScaffoldMessenger.maybeOf(context)
-                ?.removeCurrentSnackBar(reason: SnackBarClosedReason.hide);
+            context.toaster.removeCurrentSnackBar();
             if (successMessage != null) {
               context.toaster.showSuccessToast(message: successMessage);
             }

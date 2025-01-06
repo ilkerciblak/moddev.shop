@@ -3,28 +3,41 @@
 import 'package:flutter/material.dart';
 
 extension ContextThemeExtension on BuildContext {
-  _ContextThemeExtension get theme => _ContextThemeExtension(this);
+  _ContextTextThemeExtension get textTheme => _ContextTextThemeExtension(this);
+  _ContextColorThemeExtension get scaffoldTheme =>
+      _ContextColorThemeExtension(this);
 }
 
-final class _ContextThemeExtension {
+final class _ContextTextThemeExtension {
   final BuildContext _context;
 
-  _ContextThemeExtension(BuildContext context) : _context = context;
+  _ContextTextThemeExtension(BuildContext context) : _context = context;
 
   TextTheme get textTheme => Theme.of(_context).textTheme;
-  TextStyle? get displayLarge => Theme.of(_context).textTheme.displayLarge;
-  TextStyle? get displayMedium => Theme.of(_context).textTheme.displayMedium;
-  TextStyle? get displaySmall => Theme.of(_context).textTheme.displaySmall;
-  TextStyle? get headlineLarge => Theme.of(_context).textTheme.headlineLarge;
-  TextStyle? get headlineMedium => Theme.of(_context).textTheme.headlineMedium;
-  TextStyle? get headlineSmall => Theme.of(_context).textTheme.headlineSmall;
-  TextStyle? get titleLarge => Theme.of(_context).textTheme.titleLarge;
-  TextStyle? get titleMedium => Theme.of(_context).textTheme.titleMedium;
-  TextStyle? get titleSmall => Theme.of(_context).textTheme.titleSmall;
-  TextStyle? get labelLarge => Theme.of(_context).textTheme.labelLarge;
-  TextStyle? get labelMedium => Theme.of(_context).textTheme.labelMedium;
-  TextStyle? get labelSmall => Theme.of(_context).textTheme.labelSmall;
-  TextStyle? get bodyLarge => Theme.of(_context).textTheme.bodyLarge;
-  TextStyle? get bodyMedium => Theme.of(_context).textTheme.bodyMedium;
-  TextStyle? get bodySmall => Theme.of(_context).textTheme.bodySmall;
+  TextStyle? get displayLarge => textTheme.displayLarge;
+  TextStyle? get displayMedium => textTheme.displayMedium;
+  TextStyle? get displaySmall => textTheme.displaySmall;
+  TextStyle? get headlineLarge => textTheme.headlineLarge;
+  TextStyle? get headlineMedium => textTheme.headlineMedium;
+  TextStyle? get headlineSmall => textTheme.headlineSmall;
+  TextStyle? get titleLarge => textTheme.titleLarge;
+  TextStyle? get titleMedium => textTheme.titleMedium;
+  TextStyle? get titleSmall => textTheme.titleSmall;
+  TextStyle? get labelLarge => textTheme.labelLarge;
+  TextStyle? get labelMedium => textTheme.labelMedium;
+  TextStyle? get labelSmall => textTheme.labelSmall;
+  TextStyle? get bodyLarge => textTheme.bodyLarge;
+  TextStyle? get bodyMedium => textTheme.bodyMedium;
+  TextStyle? get bodySmall => textTheme.bodySmall;
+}
+
+final class _ContextColorThemeExtension {
+  final BuildContext _context;
+
+  _ContextColorThemeExtension(BuildContext context) : _context = context;
+
+  Color? get scaffoldBackgroundColor =>
+      Theme.of(_context).scaffoldBackgroundColor;
+
+  // Color? get color => Theme.of(_context);
 }
