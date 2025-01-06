@@ -79,7 +79,7 @@ class _FilteredCategoryHeader extends StatelessWidget {
       builder: (context, state) {
         return SliverAppBar(
           key: ObjectKey(state),
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: context.scaffoldTheme.scaffoldBackgroundColor,
           pinned: true,
           actions: [
             if (state != null)
@@ -89,7 +89,7 @@ class _FilteredCategoryHeader extends StatelessWidget {
           centerTitle: false,
           title: Text(
             state?.name ?? 'Featured Products',
-            style: context.theme.titleLarge,
+            style: context.textTheme.titleLarge,
           ),
         );
       },

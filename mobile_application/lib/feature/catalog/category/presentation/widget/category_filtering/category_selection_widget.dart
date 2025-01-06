@@ -38,9 +38,7 @@ class CategorySelectionWidget extends StatelessWidget {
               children: [
                 Text(
                   category.name.capitializeEachWord(),
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium
+                  style: context.textTheme.titleMedium
                       ?.withOpacity(selectedOpacity),
                 )
               ],

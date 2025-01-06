@@ -25,11 +25,11 @@ class ShimmerProductDetailContainer extends StatelessWidget {
             baseColor: AppColors.primarySilver,
             highlightColor: AppColors.primaryBlack,
             child: Container(
-              height: context.theme.headlineMedium?.fontSize,
+              height: context.textTheme.headlineMedium?.fontSize,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(
-                    context.theme.headlineMedium?.fontSize ?? 11),
+                    context.textTheme.headlineMedium?.fontSize ?? 11),
               ),
             ),
           ),
@@ -41,11 +41,11 @@ class ShimmerProductDetailContainer extends StatelessWidget {
                 baseColor: AppColors.primarySilver,
                 highlightColor: AppColors.primaryWhite,
                 child: Container(
-                  height: context.theme.headlineSmall?.fontSize,
+                  height: context.textTheme.headlineSmall?.fontSize,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
-                        context.theme.headlineSmall?.fontSize ?? 11),
+                        context.textTheme.headlineSmall?.fontSize ?? 11),
                   ),
                 ),
               )),
@@ -55,11 +55,11 @@ class ShimmerProductDetailContainer extends StatelessWidget {
                 baseColor: AppColors.primarySilver,
                 highlightColor: AppColors.primaryWhite,
                 child: Container(
-                  height: context.theme.headlineSmall?.fontSize,
+                  height: context.textTheme.headlineSmall?.fontSize,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(
-                        context.theme.headlineSmall?.fontSize ?? 11),
+                        context.textTheme.headlineSmall?.fontSize ?? 11),
                   ),
                 ),
               ))

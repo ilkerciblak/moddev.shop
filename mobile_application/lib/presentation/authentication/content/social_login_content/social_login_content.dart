@@ -12,7 +12,7 @@ class SocialLoginContent extends StatelessWidget {
       children: [
         Text(
           'Or You Can Continue with Social Accounts',
-          style: context.theme.bodySmall,
+          style: context.textTheme.bodySmall,
         ),
         ...[
           const FacebookLoginButton(),

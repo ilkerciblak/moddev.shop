@@ -28,11 +28,11 @@ class UserScreenHeader extends StatelessWidget {
             ),
             Text(
               user.email,
-              style: context.theme.bodyMedium,
+              style: context.textTheme.bodyMedium,
             ),
             Text(
               '${user.firstName} ${user.lastName}',
-              style: context.theme.bodyMedium,
+              style: context.textTheme.bodyMedium,
             )
           ],
         ));

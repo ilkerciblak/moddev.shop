@@ -41,7 +41,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: () => context.goNamed('login-screen'),
                         child: Text(
                           'Login Here',
-                          style: context.theme.titleMedium,
+                          style: context.textTheme.titleMedium,
                         ),
                       )
                     ],

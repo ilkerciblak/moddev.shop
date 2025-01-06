@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobile_application/common/_common.dart';
 import 'package:mobile_application/feature/catalog/product/presentation/widget/product_search_component/product_search_component.dart';
 import 'package:mobile_application/presentation/shopping_screen/content/app_bar/category/category_list_content.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_cubit.dart';
@@ -16,7 +17,7 @@ class ShoppingScreenAppBarContent extends StatelessWidget {
       clipBehavior: Clip.none,
       scrolledUnderElevation: 0.0,
       titleSpacing: 0.0,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: context.scaffoldTheme.scaffoldBackgroundColor,
       floating: true,
       actions: [
         ProductSearchComponent.searchIcon(),

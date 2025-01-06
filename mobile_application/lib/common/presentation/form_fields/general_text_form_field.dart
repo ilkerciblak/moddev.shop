@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_application/common/extension/_extension.dart';
 import 'package:mobile_application/common/presentation/form_fields/mixin/_form_field_mixin.dart';
 import 'package:mobile_application/common/presentation/form_fields/validators/validation_helper.dart';
 import 'package:mobile_application/common/theme/color/app_colors.dart';
@@ -60,9 +61,7 @@ class _GeneralTextFormFieldState extends State<GeneralTextFormField>
       valueListenable: obsecureText,
       builder: (context, obsecure, child) {
         return TextFormField(
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
+          style: context.textTheme.titleMedium
               ?.copyWith(color: AppColors.primaryBlack),
           controller: widget.textEditingController,
           focusNode: widget.currentFocusNode,

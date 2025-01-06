@@ -73,9 +73,7 @@ class _DummyReviews extends StatelessWidget {
       children: [
         Text(
           'Reviews',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
+          style: context.textTheme.bodyMedium
               ?.copyWith(
                 color: AppColors.primaryBlack,
               )
@@ -94,7 +92,7 @@ class _DummyReviews extends StatelessWidget {
                   children: [
                     Text(
                       review.reviewerName,
-                      style: context.theme.bodySmall?.copyWith(
+                      style: context.textTheme.bodySmall?.copyWith(
                         color: AppColors.primaryBlack,
                       ),
                     ),
@@ -104,24 +102,18 @@ class _DummyReviews extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.star,
-                          size: context.theme.bodyLarge?.fontSize,
+                          size: context.textTheme.bodyLarge?.fontSize,
                         ),
                         Text(
                           review.rating.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
+                          style: context.textTheme.bodySmall
                               ?.copyWith(color: AppColors.primaryBlack),
                         ),
                         Text('|',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
+                            style: context.textTheme.bodySmall
                                 ?.copyWith(color: AppColors.primaryBlack)),
                         Text(review.date.toShortDateString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
+                            style: context.textTheme.bodySmall
                                 ?.copyWith(color: AppColors.primaryBlack))
                       ],
                     )
@@ -133,9 +125,7 @@ class _DummyReviews extends StatelessWidget {
 
                 Text(
                   product.reviews[index].comment,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
+                  style: context.textTheme.bodyLarge
                       ?.copyWith(color: AppColors.primaryBlack),
                 ),
                 AppSpacing.verticalGapLarge
@@ -164,9 +154,7 @@ class _ProductDescriptionWidget extends StatelessWidget {
       children: [
         Text(
           'Description',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
+          style: context.textTheme.bodyMedium
               ?.copyWith(
                 color: AppColors.primaryBlack,
               )
@@ -175,7 +163,7 @@ class _ProductDescriptionWidget extends StatelessWidget {
         AppSpacing.verticalGapMd,
         Text(
           product.productDescription,
-          style: context.theme.bodyMedium?.copyWith(
+          style: context.textTheme.bodyMedium?.copyWith(
             color: AppColors.primaryBlack,
           ),
         )
@@ -195,9 +183,7 @@ class _InStockPresenter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Last ${product.stockAmount.toString()} in stock',
-      style: Theme.of(context)
-          .textTheme
-          .bodyMedium
+      style: context.textTheme.bodyMedium
           ?.copyWith(
             color: AppColors.primaryBlack,
           )
@@ -220,21 +206,17 @@ class _AverageRatingAndReviews extends StatelessWidget {
       children: [
         Icon(
           Icons.star,
-          size: context.theme.bodyLarge?.fontSize,
+          size: context.textTheme.bodyLarge?.fontSize,
         ),
         Text(
           product.avgRating.toString(),
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
+          style: context.textTheme.bodyMedium
               ?.copyWith(color: AppColors.primaryBlack),
         ),
         const SizedBox(width: 5),
         Text(
           '| ${product.reviews.length * product.price.truncate()} reviews',
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium
+          style: context.textTheme.bodyMedium
               ?.copyWith(
                 color: AppColors.primaryBlack,
               )
@@ -256,9 +238,7 @@ class _ProductPriceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       '${product.price.toString()}\$',
-      style: Theme.of(context)
-          .textTheme
-          .headlineSmall
+      style: context.textTheme.headlineSmall
           ?.copyWith(color: AppColors.primaryBlack),
     );
   }
@@ -277,9 +257,7 @@ class _ProductTitle extends StatelessWidget {
       flex: 3,
       child: Text(
         product.productName,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
+        style: context.textTheme.headlineMedium
             ?.copyWith(color: AppColors.primaryBlack),
       ),
     );

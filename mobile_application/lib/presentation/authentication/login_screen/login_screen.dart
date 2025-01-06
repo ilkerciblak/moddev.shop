@@ -81,7 +81,7 @@ class _SignUp extends StatelessWidget {
           },
           child: Text(
             'Sign Up!',
-            style: context.theme.titleMedium,
+            style: context.textTheme.titleMedium,
           ),
         )
       ],
@@ -96,7 +96,7 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'MODULAR SHOP',
-      style: context.theme.headlineLarge,
+      style: context.textTheme.headlineLarge,
     );
   }
 }

@@ -91,7 +91,7 @@ class ProductDetailContent extends StatelessWidget
           if (errorWidget != null)
             SliverFillRemaining(
               child: errorWidget,
-            )
+            ),
         ],
       ),
     );
