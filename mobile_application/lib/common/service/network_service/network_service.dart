@@ -58,7 +58,7 @@ final class NetworkService {
           request: http.post(
             uri,
             body: jsonEncode(requestBody),
-            headers: this.headers,
+            headers: headers,
           ),
         ).run().then(
               (r) => r.fold((l) => throw l, (r) => r),

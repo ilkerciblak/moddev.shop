@@ -2,17 +2,22 @@
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mobile_application/common/_common.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_application/common/service/shared_preferences/_shared_preferences.dart';
 import 'package:mobile_application/feature/authentication/data/service/dummy_authentication_service.dart';
+import 'package:mobile_application/feature/cart/application/_application.dart';
+import 'package:mobile_application/feature/cart/data/_data.dart';
+import 'package:mobile_application/feature/cart/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/category/application/_application.dart';
 import 'package:mobile_application/feature/catalog/category/data/_data.dart';
 import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/application/_application.dart';
 import 'package:mobile_application/feature/catalog/product/data/_data.dart';
-import 'package:mobile_application/feature/catalog/product/data/repository/product_repository.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile_application/feature/_feature.dart';
@@ -29,7 +34,9 @@ Future<void> initProjectDependencies() async {
   await dotenv.load(fileName: 'lib/common/config/.env');
   // Initializing shared prefences instance
   final prefs = await SharedPreferences.getInstance();
+  // final dir = await getApplicationDocumentsDirectory();
 
+  await Hive.initFlutter('lib/cache');
   // prefs.clear();
 
   /// Register of
@@ -139,4 +146,27 @@ Future<void> initProjectDependencies() async {
   final IProductRepository productRepository =
       getIt.registerSingleton<IProductRepository>(
           ProductRepository(productService: productService));
+
+  final ICartService cartService = getIt.registerSingleton<ICartService>(
+      DummyCartService(apiService: apiService));
+
+  getIt.registerSingleton<GenericHiveManager>(
+    GenericHiveManager('cart_hive'),
+    instanceName: 'cartHiveManager',
+  );
+
+  final ICartRequestHiveRepository cartRequestHiveRepository =
+      getIt.registerSingleton<ICartRequestHiveRepository>(
+    CartRequestHiveRepository(
+        cacheManager:
+            getIt<GenericHiveManager>(instanceName: 'cartHiveManager')),
+  );
+
+  final ICartRepository cartRepository =
+      getIt.registerSingleton<ICartRepository>(
+    DummyCartRepository(
+        service: cartService,
+        cartHiveRepo: cartRequestHiveRepository,
+        tokenRepository: tokenRepository),
+  );
 }

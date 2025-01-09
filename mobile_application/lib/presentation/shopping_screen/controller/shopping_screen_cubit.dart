@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_application/common/_common.dart';
+import 'package:mobile_application/feature/cart/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/category/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_state.dart';
@@ -10,6 +11,8 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
       GetIt.instance<IProductRepository>();
   final ICategoryRepository _categoryRepository =
       GetIt.instance<ICategoryRepository>();
+  final ICartRepository _cartRepository = GetIt.instance<ICartRepository>();
+
   ShoppingScreenCubit() : super(ShoppingScreenState.initial()) {
     initPage();
   }
@@ -106,5 +109,23 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
         return r;
       },
     );
+  }
+
+  Future<ActionResult<void>> onAddtoCartPressed({
+    required int productId,
+    int quantity = 1,
+  }) async {
+    var response = await _cartRepository
+        .addUpdateProduct(
+          productId: productId,
+          quantity: quantity,
+        )
+        .run();
+
+    return response.fold((l) {
+      return Failure(l);
+    }, (r) {
+      return const Success();
+    });
   }
 }

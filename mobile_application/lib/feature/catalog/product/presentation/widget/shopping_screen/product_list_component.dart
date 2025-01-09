@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 
 class ProductListComponent extends StatelessWidget {
   final Product product;
+  final void Function(int productId) onAddPressed;
 
   const ProductListComponent({
     super.key,
     required this.product,
+    required this.onAddPressed,
   });
 
   @override
@@ -44,8 +46,7 @@ class ProductListComponent extends StatelessWidget {
               alignment: Alignment.topRight,
               child: IconButton(
                 onPressed: () {
-                  // GetIt.instance<CartCubit>().addProduct(
-                  //     context: context, productId: product.identifier);
+                  onAddPressed(product.identifier);
                 },
                 icon: const Icon(Icons.add_circle),
                 color: AppColors.primaryBlack,

@@ -44,6 +44,16 @@ abstract interface class IApiService {
     QueryParameters? queryParameters, {
     required String categorySlug,
   });
+
+  /// [POST] Api Request for `Adding a new Cart`
+  ///
+  /// Parameters:
+  /// * [cartRequest]: to set cart products and userid
+  /// * [accessToken]: Bearer accessToken of the user
+  ApiTask addNewCart({
+    required Map<String, dynamic> cartRequest,
+    required String accessToken,
+  });
 }
 
 typedef ApiTask = TaskEither<Exception, Map<String, dynamic>>;

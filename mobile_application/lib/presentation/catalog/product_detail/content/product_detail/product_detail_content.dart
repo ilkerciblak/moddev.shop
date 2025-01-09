@@ -79,7 +79,12 @@ class ProductDetailContent extends StatelessWidget
         color: Theme.of(context).cardColor,
         child: ElevatedStatefullButton(
           btnText: 'Add to Cart',
-          onTap: () {},
+          onTap: () => context
+              .read<ProductDetailCubit>()
+              .addProductToCart()
+              .showActionResultToast(context,
+                  successMessage:
+                      '${(productResult as Success<Product>).value?.productName} Successfully add to cart'),
           actionResult: actionResult,
         ),
       ),

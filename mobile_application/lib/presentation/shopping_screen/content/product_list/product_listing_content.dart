@@ -51,6 +51,13 @@ class ProductListingContent extends StatelessWidget
         ),
         child: ProductListComponent(
           product: value[index],
+          onAddPressed: (productId) => context
+              .read<ShoppingScreenCubit>()
+              .onAddtoCartPressed(productId: productId)
+              .showActionResultToast(
+                context,
+                successMessage: 'Product Added to Cart',
+              ),
         ),
       ),
     );

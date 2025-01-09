@@ -5,3 +5,5 @@ export 'encryption/encrypter_mode.dart';
 export 'shared_preferences/encrypted_shared_preferences_manager.dart';
 export 'secure_storage_service/encrypted_secure_storage_service.dart';
 export 'authentication/_authentication.dart';
+
+export 'cache/_cache.dart';

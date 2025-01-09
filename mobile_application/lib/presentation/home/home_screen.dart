@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: widget._navigationShell,
-      extendBody: true,
+      extendBody: false,
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomNavigationBar(
         // type: BottomNavigationBarType.shifting,
@@ -42,16 +42,20 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
+              Icons.shopping_cart_outlined,
+            ),
+            activeIcon: Icon(
+              Icons.shopping_cart,
+            ),
+            label: 'Basket',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
               Icons.person_2_outlined,
             ),
             activeIcon: Icon(Icons.person_2),
             label: 'Profile',
           ),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              label: 'Anan')
         ],
       ),
     );

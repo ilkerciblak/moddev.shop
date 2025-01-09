@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobile_application/common/api/query_parameters.dart';
 import 'package:mobile_application/common/service/_service.dart';
 import 'package:mobile_application/common/api/i_api_service.dart';
+import 'package:mobile_application/common/extension/_extension.dart';
 
 final class DummyJsonApi implements IApiService {
   final NetworkService _networkService;
@@ -14,6 +15,9 @@ final class DummyJsonApi implements IApiService {
   ApiTask login({required String username, required String password}) {
     return _networkService.post(
       path: dotenv.env['LOGIN_PATH']!,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+      },
       requestBody: {
         'username': username,
         'password': password,
@@ -97,5 +101,21 @@ final class DummyJsonApi implements IApiService {
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
         });
+  }
+
+  @override
+  ApiTask addNewCart({
+    required Map<String, dynamic> cartRequest,
+    required String accessToken,
+  }) {
+    return _networkService.post(
+      path: dotenv.env['ADD_NEW_CART']!,
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.authorizationHeader.capitializeEachWord():
+            'Bearer $accessToken',
+      },
+      requestBody: cartRequest,
+    );
   }
 }

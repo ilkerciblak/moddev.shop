@@ -17,6 +17,9 @@ class PresentationRouteRegistrar {
               ShoppingScreenRegistrar.shoppingRoute,
             ],
           ),
+          StatefulShellBranch(routes: [
+            CartScreenRouteRegistrar.cartScreen,
+          ]),
           StatefulShellBranch(
             routes: [
               UserRouteRegistrar.userRoute,
@@ -26,18 +29,17 @@ class PresentationRouteRegistrar {
         navigatorContainerBuilder: (context, navigationShell, children) {
           final List<Widget> stackWidgets = children.mapWithIndex(
             (t, index) {
-              if (index == 1) {
-                return Visibility(
-                  maintainState: false,
-                  visible: navigationShell.currentIndex == 1,
+              if (index == 0) {
+                return Visibility.maintain(
+                  visible: navigationShell.currentIndex == 0,
                   child: TickerMode(
-                    enabled: navigationShell.currentIndex == 1,
+                    enabled: navigationShell.currentIndex == 0,
                     child: t,
                   ),
                 );
               }
-
-              return Visibility.maintain(
+              return Visibility(
+                maintainState: false,
                 visible: navigationShell.currentIndex == index,
                 child: TickerMode(
                   enabled: navigationShell.currentIndex == index,

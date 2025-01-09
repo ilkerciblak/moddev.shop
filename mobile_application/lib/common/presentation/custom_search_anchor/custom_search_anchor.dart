@@ -471,9 +471,7 @@ class _CustomSearchAnchorWithBar<T> extends CustomSearchAnchor<T> {
             return SearchBar(
               controller: controller,
               autoFocus: false,
-              onTapOutside: (event) {
-                print('object');
-              },
+              onTapOutside: (event) {},
               leading: Icon(Icons.search_outlined),
               // enabled: false,
               onChanged: (String value) {

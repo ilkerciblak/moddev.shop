@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 extension ContextSizingExtension on BuildContext {
-  _ContextSizingExtension get size => _ContextSizingExtension(this);
+  _ContextSizingExtension get sized => _ContextSizingExtension(this);
 }
 
 final class _ContextSizingExtension {
