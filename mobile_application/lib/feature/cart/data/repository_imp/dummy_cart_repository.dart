@@ -39,4 +39,9 @@ final class DummyCartRepository implements ICartRepository {
   TaskEither<Exception, void> removeProduct({required int productId}) {
     return _cartHive.removeProduct(productId: productId);
   }
+
+  @override
+  TaskEither<Exception, void> checkout() {
+    return _cartHive.removeCachedCartRequest();
+  }
 }

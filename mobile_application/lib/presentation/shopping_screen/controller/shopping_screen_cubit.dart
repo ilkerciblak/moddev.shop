@@ -19,6 +19,7 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
 
   void initPage() async {
     await Future.wait([
+      getCart(),
       getCategories(),
       getProducts(),
     ]);
@@ -122,10 +123,21 @@ final class ShoppingScreenCubit extends Cubit<ShoppingScreenState> {
         )
         .run();
 
+    await getCart();
+
     return response.fold((l) {
       return Failure(l);
     }, (r) {
       return const Success();
     });
+  }
+
+  Future<void> getCart() async {
+    var response = await _cartRepository.getCart().run();
+
+    response.fold(
+      (l) {},
+      (r) => emit(state.copyWith(cart: Success(r))),
+    );
   }
 }

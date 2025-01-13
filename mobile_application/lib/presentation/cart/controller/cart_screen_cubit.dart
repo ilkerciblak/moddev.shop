@@ -12,10 +12,7 @@ class CartScreenCubit extends Cubit<CartScreenState> {
   final ICartRepository _cartRepository = GetIt.instance<ICartRepository>();
 
   Future<ActionResult<Cart>> getCart() async {
-    emit(state.copyWith(cart: const Loading()));
-
     var response = await _cartRepository.getCart().run();
-    // await Future.delayed(const Duration(seconds: 10));
 
     return response.fold(
       (l) {
@@ -28,4 +25,43 @@ class CartScreenCubit extends Cubit<CartScreenState> {
       },
     );
   }
+
+  Future<ActionResult<void>> deleteProduct(int productId) async {
+    var response =
+        await _cartRepository.removeProduct(productId: productId).run();
+
+    await getCart();
+
+    return response.fold(
+      (l) => Failure(l),
+      (r) => const Success(),
+    );
+  }
+
+  Future<ActionResult<void>> checkout() async {
+    var response = await _cartRepository.checkout().run();
+
+    await getCart();
+
+    return response.fold(
+      (l) => Failure(l),
+      (r) => const Success(),
+    );
+  }
+
+  // Future<ActionResult<void>> updateProductQuantity({
+  //   required int productId,
+  //   int quantity = 1,
+  // }) async {
+  //   var response = await _cartRepository
+  //       .addUpdateProduct(productId: productId, quantity: quantity)
+  //       .run();
+
+  //   await getCart();
+
+  //   return response.fold(
+  //     (l) => Failure(l),
+  //     (r) => const Success(),
+  //   );
+  // }
 }

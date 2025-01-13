@@ -14,6 +14,22 @@ final class CartProductCollection {
         const IMap<int, CartProduct>.empty(),
       );
 
+  bool containsProduct(int id) {
+    return collection.values.any(
+      (element) => element.identifier == id,
+    );
+  }
+
+  int productQuantity(int id) {
+    return containsProduct(id)
+        ? collection.values
+            .firstWhere(
+              (element) => element.identifier == id,
+            )
+            .quantity
+        : 0;
+  }
+
   @override
   bool operator ==(covariant CartProductCollection other) {
     if (identical(this, other)) return true;

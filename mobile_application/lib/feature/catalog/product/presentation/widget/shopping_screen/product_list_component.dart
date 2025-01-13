@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
+import 'package:mobile_application/feature/cart/presentation/_presentation.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductListComponent extends StatelessWidget {
   final Product product;
-  final void Function(int productId) onAddPressed;
+  // final void Function(int productId) onAddPressed;
+  final void Function() onQuantityChanged;
 
   const ProductListComponent({
     super.key,
     required this.product,
-    required this.onAddPressed,
+    required this.onQuantityChanged,
   });
 
   @override
@@ -42,16 +44,8 @@ class ProductListComponent extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                onPressed: () {
-                  onAddPressed(product.identifier);
-                },
-                icon: const Icon(Icons.add_circle),
-                color: AppColors.primaryBlack,
-              ),
-            ),
+            _AddToCartProcessor(
+                onQuantityChanged: onQuantityChanged, product: product)
           ],
         ),
         Text(
@@ -64,6 +58,29 @@ class ProductListComponent extends StatelessWidget {
           // style: AppFontStyles.boldBlack13.copyWith(fontSize: 11),
         ),
       ],
+    );
+  }
+}
+
+class _AddToCartProcessor extends StatelessWidget {
+  const _AddToCartProcessor({
+    required this.onQuantityChanged,
+    required this.product,
+  });
+
+  final void Function() onQuantityChanged;
+  final Product product;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 0,
+      bottom: 0,
+      child: QuantitySelector(
+        key: ValueKey(product.identifier),
+        productId: product.identifier,
+        onQuantityChanged: () => onQuantityChanged(),
+      ),
     );
   }
 }

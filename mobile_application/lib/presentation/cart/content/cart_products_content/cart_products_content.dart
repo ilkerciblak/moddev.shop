@@ -49,12 +49,51 @@ class CartProductsContent extends StatelessWidget
 
   @override
   Widget buildSuccess(BuildContext context, value) {
+    return _buildSuccess(context, value.products);
+  }
+
+  Widget _buildSuccess(
+      BuildContext context, CartProductCollection itemCollection) {
+    if (itemCollection.collection.length == 0) {
+      return SliverFillRemaining(
+        fillOverscroll: false,
+        hasScrollBody: false,
+        child: Container(
+          // clipBehavior: Clip.,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: context.scaffoldTheme.scaffoldBackgroundColor!,
+            ),
+            borderRadius: BorderRadius.circular(7),
+            // color: Colors.red,
+          ),
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.shopping_bag_outlined,
+                color: AppColors.primarySilver,
+              ),
+              Text('No Item in Basket'),
+            ],
+          ),
+        ),
+      );
+    }
+
     return SliverList.builder(
-      itemCount: value.products.collection.length,
+      itemCount: itemCollection.collection.length,
       itemBuilder: (context, index) {
-        return value.products.collection.mapTo(
+        return itemCollection.collection.mapTo(
           (key, c) {
-            return CartProductWidget(cartProduct: c);
+            return CartProductWidget(
+              cartProduct: c,
+              onDissmiss: (productId) =>
+                  context.read<CartScreenCubit>().deleteProduct(productId),
+              onQuantityChanged: (productId, quantity) {
+                context.read<CartScreenCubit>().getCart();
+              },
+            );
           },
         ).toList()[index];
       },

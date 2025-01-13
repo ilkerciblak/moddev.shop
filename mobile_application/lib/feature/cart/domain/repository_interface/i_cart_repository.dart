@@ -12,4 +12,6 @@ abstract interface class ICartRepository {
   TaskEither<Exception, void> removeProduct({
     required int productId,
   });
+
+  TaskEither<Exception, void> checkout();
 }

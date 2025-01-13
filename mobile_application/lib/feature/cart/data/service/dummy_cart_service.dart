@@ -63,7 +63,7 @@ final class DummyCartService implements ICartService {
                 price: p['price'],
                 quantity: p['quantity'],
                 totalPrice: p['total'],
-                discountPercentage: p['discountPercentage'],
+                discountPercentage: p['discountPercentage'] * 1.0,
                 discountedTotalPrice: p['discountedPrice'],
                 thumbnail: p['thumbnail'],
               ))

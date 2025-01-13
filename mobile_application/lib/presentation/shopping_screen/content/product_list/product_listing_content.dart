@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_application/common/_common.dart';
+import 'package:mobile_application/feature/cart/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/domain/_domain.dart';
 import 'package:mobile_application/feature/catalog/product/presentation/widget/_widget.dart';
 import 'package:mobile_application/presentation/shopping_screen/controller/shopping_screen_cubit.dart';
@@ -10,7 +11,9 @@ class ProductListingContent extends StatelessWidget
         ActionResultPresenterMixin<List<Product>>,
         ActionResultSnackbarMixin<List<Product>> {
   final ActionResult<List<Product>> productResult;
-  ProductListingContent({super.key, required this.productResult}) {
+  final ActionResult<Cart> cartResult;
+  ProductListingContent(
+      {super.key, required this.productResult, required this.cartResult}) {
     actionResult = productResult;
   }
 
@@ -49,16 +52,10 @@ class ProductListingContent extends StatelessWidget
         padding: const EdgeInsets.symmetric(
           horizontal: 4,
         ),
-        child: ProductListComponent(
-          product: value[index],
-          onAddPressed: (productId) => context
-              .read<ShoppingScreenCubit>()
-              .onAddtoCartPressed(productId: productId)
-              .showActionResultToast(
-                context,
-                successMessage: 'Product Added to Cart',
-              ),
-        ),
+        child:
+            ProductListComponent(product: value[index], onQuantityChanged: () {}
+                //     context.read<ShoppingScreenCubit>().getCart(),
+                ),
       ),
     );
   }

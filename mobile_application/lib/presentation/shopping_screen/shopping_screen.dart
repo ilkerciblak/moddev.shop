@@ -51,13 +51,13 @@ class _ProductListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelectorT<ActionResult<List<Product>>>(
+    return BlocBuilder<ShoppingScreenCubit, ShoppingScreenState>(
       bloc: cb,
-      selector: (state) => state.products,
       builder: (context, state) {
         return ProductListingContent(
           key: ObjectKey(state),
-          productResult: state,
+          productResult: state.products,
+          cartResult: state.cart,
         );
       },
     );
